@@ -1,3 +1,8 @@
+package data;
+
+
+import java.util.Collection;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +13,7 @@
  *
  * @author sebastien
  */
-public abstract class Client extends Point {
-    float tempsService;
-    float quantiteCommandee;
+public class Swaplocation extends Point{
+    Collection <Swapbody> swapbodys;
+    float tempsAction;
 }

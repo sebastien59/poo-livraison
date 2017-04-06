@@ -1,5 +1,4 @@
-
-import java.util.Collection;
+package data;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,6 +10,6 @@ import java.util.Collection;
  *
  * @author sebastien
  */
-public class Solution {
-    Collection<Tournee> tournees;
+public class Coordonnees {
+    
 }

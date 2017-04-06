@@ -1,3 +1,5 @@
+package data;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +10,6 @@
  *
  * @author sebastien
  */
-public class Point {
-    Coordonnees localisation;
-    String nom;
+public class Donnees {
+    
 }

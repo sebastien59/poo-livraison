@@ -1,5 +1,4 @@
-
-import java.util.Collection;
+package data;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,9 +10,7 @@ import java.util.Collection;
  *
  * @author sebastien
  */
-public class Tournee {
-    Vehicule vehicule;
-    Collection<Point> points;
-    float coutTotal;
-    float tempsTotal;
+public class Point {
+    Coordonnees localisation;
+    String nom;
 }

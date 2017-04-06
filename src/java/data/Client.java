@@ -1,3 +1,5 @@
+package data;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +10,7 @@
  *
  * @author sebastien
  */
-public class Train extends Vehicule {
-    Swapbody remorque;
+public abstract class Client extends Point {
+    float tempsService;
+    float quantiteCommandee;
 }
