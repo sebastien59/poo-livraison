@@ -6,11 +6,31 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Projet POO</title>
+        <title>Swap Location Project</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <Link rel="stylesheet" type="text/css" href="./css/myStyle.css">
     </head>
     <body>
-        <div>Voici le projet POO</div>
+        <div id="box">
+            <form action="upload" method="post" action="./vue/controller.jsp">
+                <label>Distance Times Coordinates :</label>
+                <input type="file" name="DistanceTimesCoordinates"/>
+                <br>
+                <label>Distance Times Data :</label>
+                <input type="file" name="DistanceTimesData"/>
+                <br>
+                <label>Fleet :</label>
+                <input type="file" name="Fleet"/>
+                <br>
+                <label>Locations :</label>
+                <input type="file" name="Locations"/>
+                <br>
+                <label>SwapActions :</label>
+                <input type="file" name="SwapActions"/>
+                <br>
+                <p><input type="submit" value="Trouver des solutions..." /></p>
+            </form>
+        </div>
     </body>
 </html>
