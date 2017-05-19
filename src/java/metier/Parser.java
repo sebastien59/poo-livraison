@@ -44,12 +44,17 @@ public class Parser {
             {
                 if(str.contains(";")){
                     this.nbLine++;
-                    /*if(this.nbLine == 1){
-                        String[] columns = str.split(";");
-                        this.nbColumn = columns.length;
-                    }*/
+                    
                     if(this.file.contains("SwapActions.csv") && this.nbLine >1){
                         this.parseSwapActions(str, this.nbLine);
+                    }
+                    
+                    if(this.file.contains("Fleet.csv") && this.nbLine >1){
+                        this.parseFleet(str, this.nbLine);
+                    }
+                    
+                    if(this.file.contains("DistanceTimesData.csv") && this.nbLine >1){
+                        this.parseDistanceTimesData(str, this.nbLine);
                     }
                 }
                 else{
@@ -60,7 +65,6 @@ public class Parser {
             System.out.println("Nombre de lignes est " + this.nbLine);
             System.out.println("Nombre de colonnes est " + this.nbColumn);
             return true;
-       
     }
     
     public void parseSwapActions(String str, int line){
@@ -82,16 +86,62 @@ public class Parser {
         }
     }
     
+    public void parseFleet(String str, int line){
+        String[] values = str.split(";");
+        
+        switch(line){
+            case 2:
+                Constante.TRUCK_CAPACITY = Integer.parseInt(values[1]);
+                Constante.TRUCK_COST_KM = Double.parseDouble(values[2]);
+                Constante.TRUCK_COST_H = Double.parseDouble(values[3]);
+                Constante.TRUCK_COST_USAGE = Double.parseDouble(values[4]);
+                Constante.TRUCK_OPERATING_TIME = Integer.parseInt(values[5]);
+                break;
+            case 3:
+                Constante.SEMI_TRAILER_CAPACITY = Integer.parseInt(values[1]);
+                Constante.SEMI_TRAILER_COST_KM = Double.parseDouble(values[2]);
+                Constante.SEMI_TRAILER_COST_H = Double.parseDouble(values[3]);
+                Constante.SEMI_TRAILER_COST_USAGE = Double.parseDouble(values[4]);
+                Constante.SEMI_TRAILER_OPERATING_TIME = Integer.parseInt(values[5]);
+                break;
+            case 4:
+                Constante.SWAP_BODY_CAPACITY = Integer.parseInt(values[1]);
+                Constante.SWAP_BODY_COST_KM = Double.parseDouble(values[2]);
+                Constante.SWAP_BODY_COST_H = Double.parseDouble(values[3]);
+                Constante.SWAP_BODY_COST_USAGE = Double.parseDouble(values[4]);
+                Constante.SWAP_BODY_OPERATING_TIME = Integer.parseInt(values[5]);
+                break;
+        }
+    }
+    
+    public void parseDistanceTimesData(String str, int line){
+        String[] values = str.split(";");
+        this.nbColumn = values.length;
+        
+        switch(line){
+            case 2:
+                Constante.PARK = Integer.parseInt(values[1]);
+                break;
+            case 3:
+                Constante.SWAP = Integer.parseInt(values[1]);
+                break;
+            case 4:
+                Constante.EXCHANGE = Integer.parseInt(values[1]);
+                break;
+            case 5:
+                Constante.PICKUP = Integer.parseInt(values[1]);
+                break;
+        }
+    }
+    
     public static void main(String[] args) throws IOException {
         Parser p=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/SwapActions.csv");
+        Parser p2=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Fleet.csv");
         
         try{
             p.read();
-            
-            System.out.println("Park : "+ Constante.PARK);
-            System.out.println("Swap : "+ Constante.SWAP);
-            System.out.println("Exhange : "+ Constante.EXCHANGE);
-            System.out.println("PickUp : "+ Constante.PICKUP);
+            p2.read();
+            Constante.string();
          }catch(FileNotFoundException ex){
             System.out.println("test");
         }
