@@ -6,6 +6,7 @@
 package metier;
 
 import data.Constante;
+import data.Matrice;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,8 +54,9 @@ public class Parser {
                         this.parseFleet(str, this.nbLine);
                     }
                     
-                    if(this.file.contains("DistanceTimesData.csv") && this.nbLine >1){
-                        this.parseDistanceTimesData(str, this.nbLine);
+                    if(this.file.contains("DistanceTimesData.csv")){
+                        String[] values = str.split(";");
+                        this.nbColumn = values.length;
                     }
                 }
                 else{
@@ -133,18 +135,57 @@ public class Parser {
                 break;
         }
     }
+      
+    public void makeMatrice() throws FileNotFoundException, IOException{
+        int nbC = this.nbColumn;
+        int nbL= this.nbLine;
+        int Linestart = this.lineStart;
+        
+        Matrice M = new Matrice(nbL,nbC);
+        
+        String str = "";
+        FileInputStream fis;
+        fis = new FileInputStream(this.file);
+        LineNumberReader l = new LineNumberReader(new BufferedReader(new InputStreamReader(fis)));
+        int currentLine = Linestart;
+        int currentColumn = 0;
+        System.out.println("Linestart :"+Linestart);
+        
+        while ((str=l.readLine())!=null)
+        {
+            currentColumn = 0;
+            
+            if(str.contains(";")){
+                String[] values = str.split(";");
+
+                for(String s: values){
+                    currentColumn++;
+
+                    M.setContent(currentLine, currentColumn, Double.parseDouble(s));
+                    System.out.println(currentLine+" "+currentColumn+" "+s);
+                }
+
+                currentLine++;
+            }
+        }
+        
+        System.out.println(M.toString());
+    }
     
+  
     public static void main(String[] args) throws IOException {
         Parser p=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/SwapActions.csv");
         Parser p2=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Fleet.csv");
+        Parser p3= new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
         
         try{
             p.read();
             p2.read();
+            p3.read();
+            p3.makeMatrice();
             Constante.string();
          }catch(FileNotFoundException ex){
             System.out.println("test");
         }
     }
-    
 }

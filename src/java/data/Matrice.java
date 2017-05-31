@@ -144,6 +144,7 @@ public class Matrice {
         for (double[] x : this.content) {
             for (double y : x) {
                 str+= "\t" + y;
+               
             }
             str+= "\n";
         }
