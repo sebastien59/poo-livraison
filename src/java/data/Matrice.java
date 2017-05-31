@@ -152,9 +152,9 @@ public class Matrice {
     }
     
 
-    /*
-    EXEMPLES : 
-    public static void main(String[] args) {
+
+    // EXEMPLES : 
+    /*public static void main(String[] args) {
         Matrice test = new Matrice(2, 3);
         Matrice colTest = new Matrice(2, 1);
         Matrice rowTest = new Matrice(1, 3);
@@ -197,6 +197,6 @@ public class Matrice {
         System.out.println("Total Sum");
         // On calcule la somme de toutes les valeurs de la matrice
         System.out.println(test.getMatSum());
-    }
-    */
+    }*/
+
 }
