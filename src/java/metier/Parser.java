@@ -6,9 +6,11 @@
 package metier;
 
 import data.Constante;
+import data.Matrice;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -134,13 +136,31 @@ public class Parser {
         }
     }
     
-    public static void main(String[] args) throws IOException {
-        Parser p=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/SwapActions.csv");
-        Parser p2=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Fleet.csv");
+    public void makeMatrice(){
+        int nbC = this.nbColumn;
+        int nbL= this.nbLine;
+        int Linestart = this.lineStart;
         
+        Matrice M = new Matrice(nbC,nbL);
+        for(int L = Linestart; L < nbL+1; L++){
+           for(int C=0; C < nbC+1; C++){
+           
+               
+           } 
+            
+        }
+    }
+    
+    
+    public static void main(String[] args) throws IOException {
+        Parser p=new Parser("C:/Users/Youssra/Documents/projet2017/small_normal/SwapActions.csv");
+        Parser p2=new Parser("C:/Users/Youssra/Documents/projet2017/small_normal/Fleet.csv");
+        Parser p3= new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/dima/DistanceTimesData.csv");
         try{
             p.read();
             p2.read();
+            p3.read();
+            p3.makeMatrice();
             Constante.string();
          }catch(FileNotFoundException ex){
             System.out.println("test");

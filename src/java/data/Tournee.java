@@ -1,6 +1,7 @@
 package data;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /*
@@ -28,6 +29,14 @@ public class Tournee {
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
     }
+    
+    public Tournee(int idTournee) {
+        this(idTournee, null, null, 0, 0);
+    }
+    
+    public Tournee() {
+        this(0);
+    }
 
     public int getIdTournee() {
         return idTournee;
@@ -36,7 +45,7 @@ public class Tournee {
     public void setIdTournee(int idTournee) {
         this.idTournee = idTournee;
     }
-
+    
     public Vehicule getVehicule() {
         return vehicule;
     }
@@ -51,6 +60,13 @@ public class Tournee {
 
     public void setPoints(Collection<Point> points) {
         this.points = points;
+    }
+    
+    public void addPoint(Point p) {
+        if (this.points == null) {
+            this.points = new ArrayList<Point>();
+        }
+        this.points.add(p);
     }
 
     public float getCoutTotal() {

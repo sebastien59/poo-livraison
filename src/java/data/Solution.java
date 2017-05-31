@@ -22,6 +22,14 @@ public class Solution {
         this.idSolution = idSolution;
         this.tournees = tournees;
     }
+    
+    public Solution(int idSolution) {
+        this(idSolution, null);
+    }
+    
+    public Solution() {
+        this(0);
+    }
 
     public int getIdSolution() {
         return idSolution;
