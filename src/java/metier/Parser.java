@@ -10,6 +10,7 @@ import data.Matrice;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
@@ -172,12 +173,10 @@ public class Parser {
         System.out.println(M.toString());
     }
     
-  
     public static void main(String[] args) throws IOException {
-        Parser p=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/SwapActions.csv");
-        Parser p2=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Fleet.csv");
-        Parser p3= new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
-        
+        Parser p=new Parser("C:/Users/Youssra/Documents/projet2017/small_normal/SwapActions.csv");
+        Parser p2=new Parser("C:/Users/Youssra/Documents/projet2017/small_normal/Fleet.csv");
+        Parser p3= new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/dima/DistanceTimesData.csv");
         try{
             p.read();
             p2.read();
