@@ -56,13 +56,21 @@ public class Tests {
         M.setContent(4, 6, 4);
         M.setContent(4, 7, 0);
         M.setContent(4, 8, 0);
-        MC = Calculatron2000.CostMatrix(M);
+        /*MC = Calculatron2000.CostMatrix(M);
         MCR = Calculatron2000.CostMatrix(M, 1);
         System.out.println("Matrice de test :");
         System.out.println(M);
         System.out.println("Matrice de coûts normaux :");
         System.out.println(MC);
         System.out.println("Matrice de coûts camion :");
-        System.out.println(MCR);
+        System.out.println(MCR);*/
+        Calculatron2000.calculateCostMatrix(M);
+        System.out.println("Matrice de test :");
+        System.out.println(M);
+        System.out.println("Matrice de coûts normaux :");
+        System.out.println();
+        System.out.println("Matrice de coûts camion :");
+        System.out.println();
+        
     }
 }
