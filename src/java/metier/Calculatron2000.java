@@ -6,11 +6,21 @@
 package metier;
 import data.Constante;
 import data.Matrice;
+import data.Solution;
+import data.Tournee;
+import java.util.ArrayList;
+import java.util.Collection;
 /**
  *
  * @author Loïc
  */
 public class Calculatron2000 {
+    
+    //
+    //
+    //  GESTION DES COÛTS
+    //
+    //
     public static double getCost(double tempsTrajet, double distanceTrajet, int nbRem) {
         if (nbRem > 1) nbRem = 1;
         if (nbRem < 0) nbRem = 0;
@@ -45,5 +55,16 @@ public class Calculatron2000 {
     }
     public static Matrice CostMatrix(Matrice M) {
         return CostMatrix(M, 0);
+    }
+    
+    //
+    //
+    // GESTION DES TOURNÉES
+    //
+    //
+    public static Solution initTournee(Matrice M) {
+        Solution sol = new Solution(1);
+        
+        return sol;
     }
 }
