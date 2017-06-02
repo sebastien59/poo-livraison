@@ -12,13 +12,13 @@ import java.awt.geom.Point2D;
  *
  * @author sebastien
  */
-public abstract class Point extends Point2D.Float{
+public abstract class Point extends Point2D.Double{
     
     private int id;
     private String nom;
     
 
-    public Point(int id, String nom, float x, float y) {
+    public Point(int id, String nom, double x, double y) {
         this.id = id;
         this.nom = nom;
         this.x = x;

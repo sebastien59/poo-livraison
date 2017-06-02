@@ -129,12 +129,8 @@ public class Parser {
         
         if(values[0] == "DEPOT"){
             int id = Integer.parseInt(values[1].replace("D",""));
-            double d = 8.42227;
-            DecimalFormat decimalFormat = new DecimalFormat("#");
-            d = new Depot(values[1], values[1], id, values[1],decimalFormat.format(d) , 49.45044);
+            d = new Depot(values[1], values[1], id, values[1], 8.42227 , 49.45044);
         }
-        
-        
     }
     
     public void parseDistanceTimesData(String str, int line){

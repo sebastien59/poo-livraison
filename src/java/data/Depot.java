@@ -16,7 +16,7 @@ public class Depot extends Point{
     private String nomDepot;
 
     
-    public Depot(String idDepot, String nomDepot, int id, String nom, float x, float y) {
+    public Depot(String idDepot, String nomDepot, int id, String nom, double x, double y) {
         super(id, nom, x, y);
         this.idDepot = idDepot;
         this.nomDepot = nomDepot;
