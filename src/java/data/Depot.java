@@ -42,9 +42,4 @@ public class Depot extends Point{
     public String toString() {
         return "Depot{" + "idDepot=" + idDepot + ", nomDepot=" + nomDepot + '}';
     }
-
-    
-    
-    
-    
 }

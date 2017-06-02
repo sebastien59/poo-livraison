@@ -127,9 +127,11 @@ public class Parser {
         String[] values = str.split(";");
         this.nbColumn = values.length;
         
-        if(values[0] == "DEPOT"){
+        if(values[0].equals("DEPOT")){
             int id = Integer.parseInt(values[1].replace("D",""));
-            d = new Depot(values[1], values[1], id, values[1], 8.42227 , 49.45044);
+            d = new Depot(values[1], values[1], id, values[3], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
+        }
+        else if(values[0].equals("CUSTOMER")){
         }
     }
     
@@ -153,7 +155,7 @@ public class Parser {
         }
     }
       
-    public void makeMatrice() throws FileNotFoundException, IOException{
+    public Matrice makeMatrice() throws FileNotFoundException, IOException{
         int nbC = this.nbColumn;
         int nbL= this.nbLine;
         int Linestart = this.lineStart;
@@ -185,6 +187,8 @@ public class Parser {
                 currentLine++;
             }
         }
+        
+        return M;
     }
     
     public static void main(String[] args) throws IOException {
@@ -192,11 +196,15 @@ public class Parser {
         Parser p2=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Fleet.csv");
         Parser p3= new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
         
+        Parser p4= new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Locations.csv");
+        
         try{
             p.read();
             p2.read();
-            p3.read();
-            p3.makeMatrice();
+            //p3.read();
+            //p3.makeMatrice();
+            
+            p4.read();
             Constante.string();
         }catch(FileNotFoundException ex){
             System.out.println("test");
