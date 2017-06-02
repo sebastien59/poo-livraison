@@ -18,14 +18,15 @@ public class Tournee {
     
     private int idTournee;
     private Vehicule vehicule;
-    private Collection<Point> points;
-    private float coutTotal;
+    private Collection<Arc> arcs;
+    private double coutTotal;
     private float tempsTotal;
+    private static int lastID = 0;
 
-    public Tournee(int idTournee, Vehicule vehicule, Collection<Point> points, float coutTotal, float tempsTotal) {
+    public Tournee(int idTournee, Vehicule vehicule, Collection<Arc> arcs, float coutTotal, float tempsTotal) {
         this.idTournee = idTournee;
         this.vehicule = vehicule;
-        this.points = points;
+        this.arcs = arcs;
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
     }
@@ -35,7 +36,7 @@ public class Tournee {
     }
     
     public Tournee() {
-        this(0);
+        this(Tournee.lastID++);
     }
 
     public int getIdTournee() {
@@ -54,22 +55,23 @@ public class Tournee {
         this.vehicule = vehicule;
     }
 
-    public Collection<Point> getPoints() {
-        return points;
+    public Collection<Arc> getArcs() {
+        return arcs;
     }
 
-    public void setPoints(Collection<Point> points) {
-        this.points = points;
+    public void setArcs(Collection<Arc> arcs) {
+        this.arcs = arcs;
     }
     
-    public void addPoint(Point p) {
-        if (this.points == null) {
-            this.points = new ArrayList<Point>();
+    public void addArc(Arc a) {
+        if (this.arcs == null) {
+            this.arcs = new ArrayList<Arc>();
         }
-        this.points.add(p);
+        this.arcs.add(a);
+        this.coutTotal+= a.getCost();
     }
 
-    public float getCoutTotal() {
+    public double getCoutTotal() {
         return coutTotal;
     }
 
@@ -112,7 +114,7 @@ public class Tournee {
 
     @Override
     public String toString() {
-        return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + points + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+        return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
     }
     
     
