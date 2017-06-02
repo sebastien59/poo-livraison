@@ -6,6 +6,7 @@
 package metier;
 
 import data.Constante;
+import data.Depot;
 import data.Matrice;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -24,13 +26,13 @@ public class Parser {
     private int lineStart;
     private int nbLine;
     private int nbColumn;
+    private Depot d;
     
     public Parser(String file) {
         this.file = file;
         this.nbLine=0;
         this.nbColumn=0;
         this.lineStart=0;
-        
     }
     
     public Boolean read() throws FileNotFoundException, IOException{
@@ -53,6 +55,10 @@ public class Parser {
                     
                     if(this.file.contains("Fleet.csv") && this.nbLine >1){
                         this.parseFleet(str, this.nbLine);
+                    }
+                    
+                    if(this.file.contains("Locations.csv")){
+                        this.parseLocations(str);
                     }
                     
                     if(this.file.contains("DistanceTimesData.csv")){
@@ -117,6 +123,20 @@ public class Parser {
         }
     }
     
+    public void parseLocations(String str){
+        String[] values = str.split(";");
+        this.nbColumn = values.length;
+        
+        if(values[0] == "DEPOT"){
+            int id = Integer.parseInt(values[1].replace("D",""));
+            double d = 8.42227;
+            DecimalFormat decimalFormat = new DecimalFormat("#");
+            d = new Depot(values[1], values[1], id, values[1],decimalFormat.format(d) , 49.45044);
+        }
+        
+        
+    }
+    
     public void parseDistanceTimesData(String str, int line){
         String[] values = str.split(";");
         this.nbColumn = values.length;
@@ -169,21 +189,20 @@ public class Parser {
                 currentLine++;
             }
         }
-        
-        System.out.println(M.toString());
     }
     
     public static void main(String[] args) throws IOException {
-        Parser p=new Parser("C:/Users/Youssra/Documents/projet2017/small_normal/SwapActions.csv");
-        Parser p2=new Parser("C:/Users/Youssra/Documents/projet2017/small_normal/Fleet.csv");
-        Parser p3= new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/dima/DistanceTimesData.csv");
+        Parser p=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/SwapActions.csv");
+        Parser p2=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/Fleet.csv");
+        Parser p3= new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
+        
         try{
             p.read();
             p2.read();
             p3.read();
             p3.makeMatrice();
             Constante.string();
-         }catch(FileNotFoundException ex){
+        }catch(FileNotFoundException ex){
             System.out.println("test");
         }
     }

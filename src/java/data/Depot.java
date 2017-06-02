@@ -12,20 +12,21 @@ package data;
  */
 public class Depot extends Point{
     
-    private int idDepot;
+    private String idDepot;
     private String nomDepot;
 
-    public Depot(int idDepot, String nomDepot, int id, String nom, float x, float y) {
+    
+    public Depot(String idDepot, String nomDepot, int id, String nom, float x, float y) {
         super(id, nom, x, y);
         this.idDepot = idDepot;
         this.nomDepot = nomDepot;
     }
 
-    public int getIdDepot() {
+    public String getIdDepot() {
         return idDepot;
     }
 
-    public void setIdDepot(int idDepot) {
+    public void setIdDepot(String idDepot) {
         this.idDepot = idDepot;
     }
 
