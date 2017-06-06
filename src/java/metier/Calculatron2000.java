@@ -61,7 +61,9 @@ public final class Calculatron2000 {
     }
     
     public static Matrice costMatrix(Matrice M, int nbRem) {
-        //System.out.println("Calculating cost for M :");
+
+        System.out.println("Calculating cost for M :");
+
         //System.out.println(M);
         Matrice MC = new Matrice(M.getX(), M.getY()/2);
         for (int i = 1; i <= M.getX(); i++) {
