@@ -9,13 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Best Solutions</title>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2y0e-JdpOMMgJkwiN16jZExQ2fINrq2E"></script>
     </head>
     <body>
-        <h1>Voici les solutions proposées</h1>
+        <jsp:include page="../header.jsp"/>
+        <div id="map">        
         
         
-        
-        
+        <jsp:include page="../footer.jsp"/>
     </body>
 </html>

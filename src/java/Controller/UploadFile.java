@@ -106,7 +106,7 @@ public class UploadFile extends HttpServlet{
                     }
                     response.sendRedirect("http://localhost:8080/WebApplicationAPP2_2017_Projet/vue/Solution.jsp");
                 }catch (FileUploadException e){  
-                    out.println(e);  
+                    out.println(e); 
                 }
             }else{  
                 out.println("Not Multipart");  
