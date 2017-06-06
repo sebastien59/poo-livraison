@@ -12,24 +12,34 @@ and open the template in the editor.
         <Link rel="stylesheet" type="text/css" href="./css/myStyle.css">
     </head>
     <body>
+        
         <div id="box">
-            <form action="upload" method="post" action="./vue/controller.jsp">
-                <label>Distance Times Coordinates :</label>
-                <input type="file" name="DistanceTimesCoordinates"/>
-                <br>
-                <label>Distance Times Data :</label>
-                <input type="file" name="DistanceTimesData"/>
-                <br>
-                <label>Fleet :</label>
-                <input type="file" name="Fleet"/>
-                <br>
-                <label>Locations :</label>
-                <input type="file" name="Locations"/>
-                <br>
-                <label>SwapActions :</label>
-                <input type="file" name="SwapActions"/>
-                <br>
-                <p><input type="submit" value="Trouver des solutions..." /></p>
+            <img src="./images/Camion Heineken cabine blanche.jpg" style="width: 100% ;height:100%;">
+            <form action="UploadFile" method="post" enctype="multipart/form-data" name="form" id="form" >
+                <fieldset>
+                <legend id="legend">Tester le trajet</legend>
+                    <label class="champ">Uploader vos fichiers ici :</label>
+                        <input type="file" name="file" multiple="true" required/>
+                    <br>
+<!--                    <br>
+                    <label class="champ">Distance Times Data :</label>
+                        <input type="file" name="DistanceTimesData" required/>
+                    <br>
+                    <br>
+                    <label>Fleet :</label>
+                        <input type="file" name="Fleet" required/>
+                    <br>
+                    <br>
+                    <label class="champ">Locations :</label>
+                        <input type="file" name="Locations"/>
+                    <br>
+                    <br>
+                    <label class="champ">SwapActions :</label>
+                        <input type="file" name="SwapActions" required/>
+                    <br>
+                    <br>-->
+                    <p><input type="submit" name="submit" value="Trouver des solutions..." required/></p>
+                </fieldset>
             </form>
         </div>
     </body>
