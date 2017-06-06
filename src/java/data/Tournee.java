@@ -67,7 +67,6 @@ public class Tournee {
         if (this.arcs == null) {
             this.arcs = new ArrayList<Arc>();
         }
-        a.setTournee(this);
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
     }
@@ -76,7 +75,7 @@ public class Tournee {
         return coutTotal;
     }
 
-    public void setCoutTotal(double coutTotal) {
+    public void setCoutTotal(float coutTotal) {
         this.coutTotal = coutTotal;
     }
 
@@ -86,14 +85,6 @@ public class Tournee {
 
     public void setTempsTotal(float tempsTotal) {
         this.tempsTotal = tempsTotal;
-    }
-    
-    public Collection<Point> getPoints() {
-        Collection<Point> points = new ArrayList<>();
-        for (Arc a : this.arcs) {
-            points.add(a.getP1());
-        }
-        return points;
     }
 
     @Override
@@ -119,10 +110,6 @@ public class Tournee {
             return false;
         }
         return true;
-    }
-    
-    public Arc getRetour() {
-        return (Arc) this.arcs.toArray()[this.arcs.size() - 1];
     }
 
     @Override
