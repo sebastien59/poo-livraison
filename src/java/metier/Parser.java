@@ -64,6 +64,8 @@ public class Parser {
                     
                     if(this.file.contains("Locations.csv")){
                         this.parseLocations(str);
+                        
+                        System.out.println(liste_client);
                     }
                     
                     if(this.file.contains("DistanceTimesData.csv")){
@@ -139,8 +141,10 @@ public class Parser {
         else if(values[0].equals("CUSTOMER")){
             int id = Integer.parseInt(values[1].replace("C",""));
             System.out.println(values[1] + " | "+values[7]);
-            liste_client.add(new Client(id, values[1], values[8], values[6], id, values[1], values[4], values[5]));
+            liste_client.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), Boolean.parseBoolean(values[7])));
         }
+        
+        
     }
     
     public void parseDistanceTimesData(String str, int line){

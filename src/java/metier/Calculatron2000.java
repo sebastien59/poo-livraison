@@ -11,7 +11,7 @@ import java.util.Collection;
  *
  * @author Loïc
  */
-public class Calculatron2000 {
+public final class Calculatron2000 {
     private static Matrice costMatrix;
     private static Matrice costMatrixRem;
     
@@ -27,7 +27,7 @@ public class Calculatron2000 {
         cost = Constante.TRUCK_COST_USAGE + (Constante.SEMI_TRAILER_COST_USAGE * nbRem);
         cost+= (tempsTrajet * Constante.TRUCK_COST_H);
         cost+= (distanceTrajet * (Constante.TRUCK_COST_KM + (Constante.SEMI_TRAILER_COST_H * nbRem)));
-        System.out.println("\t\tCoût : " + cost);
+        //System.out.println("\t\tCoût : " + cost);
         return cost;
     }
     public static double getCost(double tempsTrajet, double distanceTrajet) {
@@ -61,16 +61,16 @@ public class Calculatron2000 {
     }
     
     public static Matrice costMatrix(Matrice M, int nbRem) {
-        System.out.println("Calculating cost for M :");
-        System.out.println(M);
+        //System.out.println("Calculating cost for M :");
+        //System.out.println(M);
         Matrice MC = new Matrice(M.getX(), M.getY()/2);
         for (int i = 1; i <= M.getX(); i++) {
-            System.out.println("Ligne " + i);
+            //System.out.println("Ligne " + i);
             for (int j = 1; j <= M.getY()/2; j++) {
-                System.out.println("\tColonne " + j);
+                //System.out.println("\tColonne " + j);
                 if (i == j) {
                     MC.setContent(i, j, 0);
-                    System.out.println("\t\t0");
+                    //System.out.println("\t\t0");
                 } else {
                     MC.setContent(i, j, getCost(M.getCell(i, j * 2), M.getCell(i, j + (j - 1)), nbRem));
                 }
@@ -80,22 +80,5 @@ public class Calculatron2000 {
     }
     public static Matrice costMatrix(Matrice M) {
         return costMatrix(M, 0);
-    }
-    
-    //
-    //
-    // GESTION DES TOURNÉES
-    //
-    //
-    public static Solution initTournee(Matrice M) {
-        //Point depot = new Depot(0, "Dépôt", 1, 1);
-        Solution sol = new Solution(1);
-        ArrayList<Tournee> tList = new ArrayList<Tournee>();
-        Tournee t = new Tournee(1);
-        int i;
-        for (i = 1; i <= M.getY(); i++) {
-            
-        }
-        return sol;
     }
 }
