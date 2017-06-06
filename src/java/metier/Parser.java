@@ -64,8 +64,6 @@ public class Parser {
                     
                     if(this.file.contains("Locations.csv")){
                         this.parseLocations(str);
-                        
-                        System.out.println(clients);
                     }
                     
                     if(this.file.contains("DistanceTimesData.csv")){
@@ -140,11 +138,8 @@ public class Parser {
         }
         else if(values[0].equals("CUSTOMER")){
             int id = Integer.parseInt(values[1].replace("C",""));
-            System.out.println(values[1] + " | "+values[7]);
             clients.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), Boolean.parseBoolean(values[7])));
         }
-        
-        
     }
     
     public void parseDistanceTimesData(String str, int line){
@@ -180,7 +175,6 @@ public class Parser {
         LineNumberReader l = new LineNumberReader(new BufferedReader(new InputStreamReader(fis)));
         int currentLine = Linestart;
         int currentColumn = 0;
-        System.out.println("Linestart :"+Linestart);
         
         while ((str=l.readLine())!=null)
         {
@@ -191,9 +185,7 @@ public class Parser {
 
                 for(String s: values){
                     currentColumn++;
-
                     M.setContent(currentLine, currentColumn, Double.parseDouble(s));
-                    System.out.println(currentLine+" "+currentColumn+" "+s);
                 }
 
                 currentLine++;
@@ -224,8 +216,8 @@ public class Parser {
         try{
             p.read();
             p2.read();
-            //p3.read();
-            //p3.makeMatrice();
+            p3.read();
+            p3.makeMatrice();
             
             p4.read();
             Constante.string();
