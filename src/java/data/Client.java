@@ -17,7 +17,6 @@ public class Client extends Point {
     private double tempsService;
     private double quantiteCommandee;
     private boolean remorque;
-    private Arc a;
 
     public Client(int idClient, String nomClient, double tempsService, double quantiteCommandee, int id, String nom, double x, double y, boolean rem) {
         super(id, nom, x, y);
@@ -66,14 +65,6 @@ public class Client extends Point {
     
     public boolean isDeliverableByTrain() {
         return this.remorque;
-    }
-    
-    public void setArc(Arc a) {
-        this.a = a;
-    }
-    
-    public Arc getArc() {
-        return this.a;
     }
 
     @Override
