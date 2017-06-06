@@ -14,10 +14,10 @@ public abstract class Client extends Point {
     
     private int idClient;
     private String nomClient;
-    private float tempsService;
-    private float quantiteCommandee;
+    private double tempsService;
+    private double quantiteCommandee;
 
-    public Client(int idClient, String nomClient, float tempsService, float quantiteCommandee, int id, String nom, float x, float y) {
+    public Client(int idClient, String nomClient, float tempsService, float quantiteCommandee, int id, String nom, double x, double y) {
         super(id, nom, x, y);
         this.idClient = idClient;
         this.nomClient = nomClient;
@@ -41,7 +41,7 @@ public abstract class Client extends Point {
         this.nomClient = nomClient;
     }
 
-    public float getTempsService() {
+    public double getTempsService() {
         return tempsService;
     }
 
@@ -49,7 +49,7 @@ public abstract class Client extends Point {
         this.tempsService = tempsService;
     }
 
-    public float getQuantiteCommandee() {
+    public double getQuantiteCommandee() {
         return quantiteCommandee;
     }
 

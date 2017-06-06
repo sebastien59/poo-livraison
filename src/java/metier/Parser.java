@@ -5,6 +5,7 @@
  */
 package metier;
 
+import data.Client;
 import data.Constante;
 import data.Depot;
 import data.Matrice;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,12 +30,14 @@ public class Parser {
     private int nbLine;
     private int nbColumn;
     private Depot d;
+    private List<Client> liste_client;
     
     public Parser(String file) {
         this.file = file;
         this.nbLine=0;
         this.nbColumn=0;
         this.lineStart=0;
+        this.liste_client= new ArrayList<Client>();
     }
     
     public Boolean read() throws FileNotFoundException, IOException{
@@ -132,6 +137,9 @@ public class Parser {
             d = new Depot(values[1], values[1], id, values[3], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
         }
         else if(values[0].equals("CUSTOMER")){
+            int id = Integer.parseInt(values[1].replace("C",""));
+            System.out.println(values[1] + " | "+values[7]);
+            liste_client.add(new Client(id, values[1], values[8], values[6], id, values[1], values[4], values[5]));
         }
     }
     
