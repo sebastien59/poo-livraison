@@ -20,62 +20,54 @@ import java.util.List;
  * @author Youssra
  */
 public class Solutionator {
-    
-    Client c1;
-    Client c2;
-    Depot D;
-    Tournee T1;
-    Tournee T2;
-    Tournee T3;
-    Tournee T4;
-    Arc a;
-    
+        private Double cout;
+        private Matrice M;
+        private List<Client> clients;
+        private Parser DistanceTimesP;
+        private Parser FleetP;
+        private Parser LocationsP;
+        private Parser SwapActionsP;
 
-    
-    
 
     public Solutionator() {
-
+        
+        DistanceTimesP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/dima/DistanceTimesData.csv");
+        FleetP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/Fleet.csv");
+        LocationsP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/Locations.csv");
+        SwapActionsP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/SwapActions.csv");
     }
-    public static void main(String[] args) throws IOException {
-        Double cout;
-        Matrice M;
-        List<Client> clients;
-        
-        Parser P = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/dima/DistanceTimesData.csv");
-        Parser P1 = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/Fleet.csv");
-        Parser P2 = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/Locations.csv");
-        Parser P3 = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/SwapActions.csv");
+    
+    public void triviale() throws IOException{
 
-        P.read();
-        P1.read();
-        P2.read();
-        P3.read();
+        DistanceTimesP.read();
+        FleetP.read();
+        LocationsP.read();
+        SwapActionsP.read();
         
-        M= P.makeMatrice();
-        Depot D = P2.getDepot();
-        clients = P2.getClients();
+        M= DistanceTimesP.makeMatrice();
+        Depot D = LocationsP.getDepot();
+        clients = LocationsP.getClients();
         
         Calculatron2000.calculateCostMatrix(M);
         Solution S = new Solution();
         Tournee T1 = new Tournee();
-        Tournee T2 = new Tournee();
-        Tournee T3 = new Tournee();
-        Tournee T4 = new Tournee();
         
-        /*Client c1 = new Client(1,"Client",2.000, 40,3, "client",0.678, 0.8889,false);
-        Client c2 = new Client(2,"Client2",2.000, 40,3, "client2",0.99, 0.444,false);
-        Depot D = new Depot("D1","Depot de Youss",1,"Nom", 0.444,0.5555);*/
-        
-        
-        Arc a1 = new Arc(D,clients.get(1));
-        Arc a2 = new Arc(clients.get(1),D);
+        for(Client c: clients){
+        Arc a1 = new Arc(D,c);
+        Arc a2 = new Arc(c,D);
         T1.addArc(a1);
         T1.addArc(a2);
         S.addTournee(T1);
-        cout = S.getCoutTotal();
-        System.out.println("Cout total :" + cout);  
+        }
         
+        cout = S.getCoutTotal();
+        System.out.println("Cout total :" + cout);
+    }
+    
+    public static void main(String[] args) throws IOException {
+       Solutionator S = new Solutionator();
+       S.triviale();
+       
     }
  
 }
