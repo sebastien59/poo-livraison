@@ -29,15 +29,15 @@ public class Parser {
     private int lineStart;
     private int nbLine;
     private int nbColumn;
-    private Depot d;
-    private List<Client> liste_client;
+    private Depot depot;
+    private List<Client> clients;
     
     public Parser(String file) {
         this.file = file;
         this.nbLine=0;
         this.nbColumn=0;
         this.lineStart=0;
-        this.liste_client= new ArrayList<Client>();
+        this.clients = new ArrayList<Client>();
     }
     
     public Boolean read() throws FileNotFoundException, IOException{
@@ -65,7 +65,7 @@ public class Parser {
                     if(this.file.contains("Locations.csv")){
                         this.parseLocations(str);
                         
-                        System.out.println(liste_client);
+                        System.out.println(clients);
                     }
                     
                     if(this.file.contains("DistanceTimesData.csv")){
@@ -136,12 +136,12 @@ public class Parser {
         
         if(values[0].equals("DEPOT")){
             int id = Integer.parseInt(values[1].replace("D",""));
-            d = new Depot(values[1], values[1], id, values[3], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
+            depot = new Depot(values[1], values[1], id, values[3], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
         }
         else if(values[0].equals("CUSTOMER")){
             int id = Integer.parseInt(values[1].replace("C",""));
             System.out.println(values[1] + " | "+values[7]);
-            liste_client.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), Boolean.parseBoolean(values[7])));
+            clients.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), Boolean.parseBoolean(values[7])));
         }
         
         
@@ -202,6 +202,17 @@ public class Parser {
         
         return M;
     }
+
+    public Depot getDepot() {
+        return depot;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+    
+    
+    
     
     public static void main(String[] args) throws IOException {
         Parser p=new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/small_normal/SwapActions.csv");
