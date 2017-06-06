@@ -83,6 +83,10 @@ public class Solution {
         return true;
     }
 
+    public double getCoutTotal() {
+        return coutTotal;
+    }
+
     @Override
     public String toString() {
         return "Solution{" + "idSolution=" + idSolution + ", tournees=" + tournees + '}';
