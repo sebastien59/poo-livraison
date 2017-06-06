@@ -1,6 +1,9 @@
 package data;
 
 import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.lang.Double;
+import java.util.ArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,13 +15,13 @@ import java.awt.geom.Point2D;
  *
  * @author sebastien
  */
-public abstract class Point extends Point2D.Float{
+public abstract class Point extends Point2D.Double{
     
     private int id;
     private String nom;
     
 
-    public Point(int id, String nom, float x, float y) {
+    public Point(int id, String nom, double x, double y) {
         this.id = id;
         this.nom = nom;
         this.x = x;
@@ -27,6 +30,14 @@ public abstract class Point extends Point2D.Float{
 
     public int getId() {
         return id;
+    }
+    
+    public double getX() {
+        return this.x;
+    }
+    
+    public double getY() {
+        return this.y;
     }
 
     public void setId(int id) {
@@ -65,19 +76,25 @@ public abstract class Point extends Point2D.Float{
         }
         return true;
     }
+    
+    public Point getClosest(Collection<Point> points) {
+        //double dist = java.lang.Double.MAX_VALUE;
+        double dist = 0;
+        double tmpD = 0;
+        Point tmpPt;
+        Point closest = null;
+        for (int i=0; i < points.size()-1; i++) {
+            if (dist > (tmpD = this.distance(tmpPt = (Point) points.toArray()[i]))) {
+                dist = tmpD;
+                closest = tmpPt;
+            }
+        }
+        return closest;
+    }
 
     @Override
     public String toString() {
         return "Point{" + "id=" + id + ", nom=" + nom + "}";
     }
-
-   
-    
-  
-  
-    
-    
-    
-    
     
 }

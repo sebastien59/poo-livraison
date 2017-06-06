@@ -1,6 +1,7 @@
 package data;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /*
@@ -17,10 +18,20 @@ public class Solution {
     
     private int idSolution;
     private Collection<Tournee> tournees;
+    private static int lastId;
+    private double coutTotal;
 
     public Solution(int idSolution, Collection<Tournee> tournees) {
         this.idSolution = idSolution;
         this.tournees = tournees;
+    }
+    
+    public Solution(int idSolution) {
+        this(idSolution, null);
+    }
+    
+    public Solution() {
+        this(Solution.lastId++);
     }
 
     public int getIdSolution() {
@@ -37,6 +48,14 @@ public class Solution {
 
     public void setTournees(Collection<Tournee> tournees) {
         this.tournees = tournees;
+    }
+    
+    public void addTournee(Tournee t) {
+        if (this.tournees == null) {
+            this.tournees = new ArrayList<Tournee>();
+        }
+        this.tournees.add(t);
+        this.coutTotal+= t.getCoutTotal();
     }
 
     @Override
@@ -62,6 +81,10 @@ public class Solution {
             return false;
         }
         return true;
+    }
+
+    public double getCoutTotal() {
+        return coutTotal;
     }
 
     @Override

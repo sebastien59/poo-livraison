@@ -1,6 +1,7 @@
 package data;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /*
@@ -17,16 +18,25 @@ public class Tournee {
     
     private int idTournee;
     private Vehicule vehicule;
-    private Collection<Point> points;
-    private float coutTotal;
+    private Collection<Arc> arcs;
+    private double coutTotal;
     private float tempsTotal;
+    private static int lastID = 0;
 
-    public Tournee(int idTournee, Vehicule vehicule, Collection<Point> points, float coutTotal, float tempsTotal) {
+    public Tournee(int idTournee, Vehicule vehicule, Collection<Arc> arcs, float coutTotal, float tempsTotal) {
         this.idTournee = idTournee;
         this.vehicule = vehicule;
-        this.points = points;
+        this.arcs = arcs;
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
+    }
+    
+    public Tournee(int idTournee) {
+        this(idTournee, null, null, 0, 0);
+    }
+    
+    public Tournee() {
+        this(Tournee.lastID++);
     }
 
     public int getIdTournee() {
@@ -36,7 +46,7 @@ public class Tournee {
     public void setIdTournee(int idTournee) {
         this.idTournee = idTournee;
     }
-
+    
     public Vehicule getVehicule() {
         return vehicule;
     }
@@ -45,19 +55,28 @@ public class Tournee {
         this.vehicule = vehicule;
     }
 
-    public Collection<Point> getPoints() {
-        return points;
+    public Collection<Arc> getArcs() {
+        return arcs;
     }
 
-    public void setPoints(Collection<Point> points) {
-        this.points = points;
+    public void setArcs(Collection<Arc> arcs) {
+        this.arcs = arcs;
+    }
+    
+    public void addArc(Arc a) {
+        if (this.arcs == null) {
+            this.arcs = new ArrayList<Arc>();
+        }
+        a.setTournee(this);
+        this.arcs.add(a);
+        this.coutTotal+= a.getCost();
     }
 
-    public float getCoutTotal() {
+    public double getCoutTotal() {
         return coutTotal;
     }
 
-    public void setCoutTotal(float coutTotal) {
+    public void setCoutTotal(double coutTotal) {
         this.coutTotal = coutTotal;
     }
 
@@ -67,6 +86,14 @@ public class Tournee {
 
     public void setTempsTotal(float tempsTotal) {
         this.tempsTotal = tempsTotal;
+    }
+    
+    public Collection<Point> getPoints() {
+        Collection<Point> points = new ArrayList<>();
+        for (Arc a : this.arcs) {
+            points.add(a.getP1());
+        }
+        return points;
     }
 
     @Override
@@ -93,10 +120,14 @@ public class Tournee {
         }
         return true;
     }
+    
+    public Arc getRetour() {
+        return (Arc) this.arcs.toArray()[this.arcs.size() - 1];
+    }
 
     @Override
     public String toString() {
-        return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + points + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+        return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
     }
     
     
