@@ -16,10 +16,18 @@ public class Arc {
     Point p2;
     double cost;
 
-    public Arc(Point p1, Point p2) {
+    public Arc(Point p1, Point p2, int nbRem) {
         this.p1 = p1;
         this.p2 = p2;
-        this.cost = Calculatron2000.getCostMatrixValue(p1, p2);
+        this.cost = Calculatron2000.getCostMatrixValue(p1, p2, nbRem);
+    }
+    
+    
+    public Arc(Point p1, Client p2) {
+        this(p1, p2, (p2.getQuantiteCommandee() >= Constante.TRUCK_CAPACITY ? 1 : 0));
+    }
+    public Arc(Client p1, Point p2) {
+        this(p1, p2, (p1.getQuantiteCommandee() >= Constante.TRUCK_CAPACITY ? 1 : 0));
     }
 
     public Point getP1() {

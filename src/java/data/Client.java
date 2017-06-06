@@ -10,20 +10,26 @@ package data;
  *
  * @author sebastien
  */
-public abstract class Client extends Point {
+public class Client extends Point {
     
     private int idClient;
     private String nomClient;
     private float tempsService;
     private float quantiteCommandee;
+    private boolean remorque;
 
-    public Client(int idClient, String nomClient, float tempsService, float quantiteCommandee, int id, String nom, float x, float y) {
+    public Client(int idClient, String nomClient, float tempsService, float quantiteCommandee, int id, String nom, float x, float y, boolean rem) {
         super(id, nom, x, y);
         this.idClient = idClient;
         this.nomClient = nomClient;
         this.tempsService = tempsService;
         this.quantiteCommandee = quantiteCommandee;
+        this.remorque = rem;
     }
+    
+     public Client(int idClient, String nomClient, float tempsService, float quantiteCommandee, int id, String nom, float x, float y) {
+         this(idClient, nomClient, tempsService, quantiteCommandee, id, nom, x, y, false);
+     }
 
     public int getIdClient() {
         return idClient;
@@ -55,6 +61,10 @@ public abstract class Client extends Point {
 
     public void setQuantiteCommandee(float quantiteCommandee) {
         this.quantiteCommandee = quantiteCommandee;
+    }
+    
+    public boolean isDeliverableByTrain() {
+        return this.remorque;
     }
 
     @Override
