@@ -55,8 +55,8 @@ public class Tournee {
         this.vehicule = vehicule;
     }
 
-    public Collection<Arc> getArcs() {
-        return arcs;
+    public ArrayList<Arc> getArcs() {
+        return (ArrayList<Arc>) arcs;
     }
 
     public void setArcs(Collection<Arc> arcs) {

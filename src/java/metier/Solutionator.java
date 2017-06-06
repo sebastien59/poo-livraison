@@ -31,10 +31,10 @@ public class Solutionator {
 
     public Solutionator() {
         
-        DistanceTimesP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/dima/DistanceTimesData.csv");
-        FleetP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/Fleet.csv");
-        LocationsP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/Locations.csv");
-        SwapActionsP = new Parser("C:/Users/Youssra/Documents/projet2017/projet2017/large_all_with_trailer/SwapActions.csv");
+        DistanceTimesP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
+        FleetP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/large_all_with_trailer/Fleet.csv");
+        LocationsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/large_all_with_trailer/Locations.csv");
+        SwapActionsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/large_all_with_trailer/SwapActions.csv");
     }
     
     public void triviale() throws IOException{
@@ -50,18 +50,23 @@ public class Solutionator {
         
         Calculatron2000.calculateCostMatrix(M);
         Solution S = new Solution();
-        Tournee T1 = new Tournee();
+        Tournee T;
         
         for(Client c: clients){
-        Arc a1 = new Arc(D,c);
-        Arc a2 = new Arc(c,D);
-        T1.addArc(a1);
-        T1.addArc(a2);
-        S.addTournee(T1);
+            Arc a1 = new Arc(D,c);
+            Arc a2 = new Arc(c,D);
+            
+            T = new Tournee();
+            
+            T.addArc(a1);
+            T.addArc(a2);
+            S.addTournee(T);
         }
         
         cout = S.getCoutTotal();
         System.out.println("Cout total :" + cout);
+        System.out.println("\n -------------------- SOLUTION ---------------- \n");
+        System.out.println(S.toString());
     }
     
     public static void main(String[] args) throws IOException {
