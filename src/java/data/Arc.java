@@ -12,9 +12,11 @@ import metier.Calculatron2000;
  * @author Loïc
  */
 public class Arc {
-    Point p1;
-    Point p2;
-    double cost;
+    private Point p1;
+    private Point p2;
+    private double cost;  
+    private Tournee t;
+    
 
     public Arc(Point p1, Point p2, int nbRem) {
         this.p1 = p1;
@@ -25,9 +27,11 @@ public class Arc {
     
     public Arc(Point p1, Client p2) {
         this(p1, p2, (p2.getQuantiteCommandee() >= Constante.TRUCK_CAPACITY ? 1 : 0));
+        p2.setArc(this);
     }
     public Arc(Client p1, Point p2) {
         this(p1, p2, (p1.getQuantiteCommandee() >= Constante.TRUCK_CAPACITY ? 1 : 0));
+        p1.setArc(this);
     }
 
     public Point getP1() {
@@ -53,7 +57,15 @@ public class Arc {
     public void setCost(double cost) {
         this.cost = cost;
     }
-
+    
+    public Tournee getTournee() {
+        return this.t;
+    }
+    
+    public void setTournee(Tournee t) {
+        this.t = t;
+    }
+   
     @Override
     public String toString() {
         return "Arc{" + "p1=" + p1 + ", p2=" + p2 + ", cost=" + cost + '}';

@@ -95,13 +95,14 @@ public class Solution {
         for(Tournee t : tournees){
             str += "R"+t.getIdTournee()+";";
             for(Arc a : t.getArcs()){
-                if(t.getArcs().size()-1 == t.getArcs().indexOf(a))
+                /*if(t.getArcs().size()-1 == t.getArcs().indexOf(a))
                     System.out.println(a.p2); 
                 else
-                    System.out.println(a.p1);
+                    System.out.println(a.p1);*/
             }
             //System.out.println(str);
         }
-        return str;
+            return str;
     }
+
 }
