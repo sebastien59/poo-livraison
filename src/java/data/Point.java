@@ -111,6 +111,5 @@ public abstract class Point extends Point2D.Double{
             default:
                 return "";    
         }
-    }
-    
+    }    
 }

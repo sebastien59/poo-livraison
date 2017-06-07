@@ -138,7 +138,8 @@ public class Parser {
         }
         else if(values[0].equals("CUSTOMER")){
             int id = Integer.parseInt(values[1].replace("C",""));
-            clients.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), Boolean.parseBoolean(values[7])));
+            
+            clients.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), values[7].equals("0")));
         }
     }
     

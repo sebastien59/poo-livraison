@@ -101,12 +101,19 @@ public class Solution {
                 str +=  arcs.indexOf(a)+";";  
                 str += a.getP1().getNom()+";";
                 str += a.getP1().getType()+";";
+                if(a.getP1() instanceof Client){
+                    Client c = (Client) a.getP1();
+                    str += c.isDeliverableByTrain();
+                }else{
+                    str += "0;";
+                }
                 str += "\n";
             }
             str += "R"+t.getIdTournee()+";";
-            str +=  arcs.size()+";";
+            str += arcs.size()+";";
             str += D.getNom()+";";
             str += D.getType()+";";
+            str += "0;";
             str += "\n";
         }
         return str;
