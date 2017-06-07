@@ -93,35 +93,23 @@ public class Solution {
         String str = "";
         
         for(Tournee t : tournees){
-            for(Arc a : t.getArcs()){
+            ArrayList<Arc> arcs = (ArrayList)t.getArcs();
+            Depot D = (Depot) arcs.get(0).getP1();
+            for(Arc a : arcs){
+
                 str += "R"+t.getIdTournee()+";";
-                str +=  t.getArcs().indexOf(a)+";";
-                
-                if(t.getArcs().size()-1 == t.getArcs().indexOf(a)){
-                    System.out.println(a.p2); 
-                    str  += a.p2.getNom()+";";
-                    
-                    str += a.p2.getType()+";";
-                    
-                }else{
-                    System.out.println(a.p1);
-                    str += a.p1.getNom()+";";
-                    str += a.p1.getType()+";";
-                    str += "\n";
-                    
-                    str += "R"+t.getIdTournee()+";";
-                    str +=  t.getArcs().indexOf(a)+";";
-                    str += a.p2.getNom()+";";
-                    str += a.p2.getType()+";";
-                    System.out.println(a.p2);
-                }
-                
-                
+                str +=  arcs.indexOf(a)+";";  
+                str += a.getP1().getNom()+";";
+                str += a.getP1().getType()+";";
                 str += "\n";
             }
-            
-            //System.out.println(str);
+            str += "R"+t.getIdTournee()+";";
+            str +=  arcs.size()+";";
+            str += D.getNom()+";";
+            str += D.getType()+";";
+            str += "\n";
         }
         return str;
     }
+
 }

@@ -44,7 +44,7 @@ public class Solutionator {
         LocationsP.read();
         SwapActionsP.read();
         
-        M= DistanceTimesP.makeMatrice();
+        M = DistanceTimesP.makeMatrice();
         Depot D = LocationsP.getDepot();
         clients = LocationsP.getClients();
         

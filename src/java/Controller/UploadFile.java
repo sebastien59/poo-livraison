@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Controller;
-
+/*
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,13 +28,15 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-
-@MultipartConfig(maxFileSize = 1699999999)
+*/
+//@MultipartConfig(maxFileSize = 1699999999)
 
 /**
  * Servlet pour gérer les différents fichiers uploadés
  * @author Vincent
  */
+
+/*
 @WebServlet(name = "UploadFile", urlPatterns = {"/UploadFile"})
 public class UploadFile extends HttpServlet{
     
@@ -116,4 +118,4 @@ public class UploadFile extends HttpServlet{
         }  
     } 
 }
-
+*/
