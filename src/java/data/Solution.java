@@ -93,13 +93,33 @@ public class Solution {
         String str = "";
         
         for(Tournee t : tournees){
-            str += "R"+t.getIdTournee()+";";
             for(Arc a : t.getArcs()){
-                if(t.getArcs().size()-1 == t.getArcs().indexOf(a))
+                str += "R"+t.getIdTournee()+";";
+                str +=  t.getArcs().indexOf(a)+";";
+                
+                if(t.getArcs().size()-1 == t.getArcs().indexOf(a)){
                     System.out.println(a.p2); 
-                else
+                    str  += a.p2.getNom()+";";
+                    
+                    str += a.p2.getType()+";";
+                    
+                }else{
                     System.out.println(a.p1);
+                    str += a.p1.getNom()+";";
+                    str += a.p1.getType()+";";
+                    str += "\n";
+                    
+                    str += "R"+t.getIdTournee()+";";
+                    str +=  t.getArcs().indexOf(a)+";";
+                    str += a.p2.getNom()+";";
+                    str += a.p2.getType()+";";
+                    System.out.println(a.p2);
+                }
+                
+                
+                str += "\n";
             }
+            
             //System.out.println(str);
         }
         return str;

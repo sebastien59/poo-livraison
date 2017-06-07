@@ -134,7 +134,7 @@ public class Parser {
         
         if(values[0].equals("DEPOT")){
             int id = Integer.parseInt(values[1].replace("D",""));
-            depot = new Depot(values[1], values[1], id, values[3], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
+            depot = new Depot(values[1], values[3], id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
         }
         else if(values[0].equals("CUSTOMER")){
             int id = Integer.parseInt(values[1].replace("C",""));

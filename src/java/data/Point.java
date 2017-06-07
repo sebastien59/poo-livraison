@@ -71,13 +71,19 @@ public abstract class Point extends Point2D.Double{
         return "Point{" + "id=" + id + ", nom=" + nom + "}";
     }
 
-   
-    
-  
-  
-    
-    
-    
-    
+   public String getType(){
+        String c = this.getClass().toString();
+        
+        switch(c){
+            case "class data.Client" :
+                   return "CUSTOMER";
+            case "class data.Depot" :
+                   return "DEPOT";
+            case "class data.Location" :
+                   return "LOCATION";
+            default:
+                return "";    
+        }
+    }
     
 }
