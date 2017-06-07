@@ -12,6 +12,8 @@ import data.Matrice;
 import data.Point;
 import data.Solution;
 import data.Tournee;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,17 +29,18 @@ public class Solutionator {
         private Parser FleetP;
         private Parser LocationsP;
         private Parser SwapActionsP;
-
+        private Solution S;
 
     public Solutionator() {
-        
+        String size = "large";
         DistanceTimesP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
-        FleetP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/large_all_with_trailer/Fleet.csv");
-        LocationsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/large_all_with_trailer/Locations.csv");
-        SwapActionsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/large_all_with_trailer/SwapActions.csv");
+        FleetP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Fleet.csv");
+        LocationsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Locations.csv");
+        SwapActionsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/SwapActions.csv");
+        S= new Solution();
     }
     
-    public void triviale() throws IOException{
+    public String triviale() throws IOException{
 
         DistanceTimesP.read();
         FleetP.read();
@@ -49,7 +52,6 @@ public class Solutionator {
         clients = LocationsP.getClients();
         
         Calculatron2000.calculateCostMatrix(M);
-        Solution S = new Solution();
         Tournee T;
         
         for(Client c: clients){
@@ -66,13 +68,24 @@ public class Solutionator {
         cout = S.getCoutTotal();
         System.out.println("Cout total :" + cout);
         System.out.println("\n -------------------- SOLUTION ---------------- \n");
-        System.out.println(S.toString());
+        return S.toString();
+        
     }
     
     public static void main(String[] args) throws IOException {
-       Solutionator S = new Solutionator();
-       S.triviale();
+        Solutionator S = new Solutionator();
+        String solutionStr = S.triviale();
        
+        System.out.println(solutionStr);
+        
+        File f = new File("Solution.csv");
+        f.delete();
+        
+        FileWriter fileWriter = new FileWriter("Solution.csv",true);
+        fileWriter.write(solutionStr);
+        fileWriter.close(); 
     }
  
 }
+
+

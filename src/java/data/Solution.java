@@ -90,30 +90,65 @@ public class Solution {
    
     @Override
     public String toString() {
-        String str = "";
+        //Header du tableau
+        String str = "TOUR_ID;TOUR_POSITION;LOCATION_ID;LOCATION_TYPE;SEMI_TRAILER_ATTACHED;SWAP_BODY_TRUCK;SWAP_BODY_SEMI_TRAILER;SWAP_ACTION;SWAP_BODY_1_QUANTITY;SWAP_BODY_2_QUANTITY\n";
         
         for(Tournee t : tournees){
             ArrayList<Arc> arcs = (ArrayList)t.getArcs();
+            
+            // Utilisation des valeurs maximal comme variable tampon pour le dernier point de la tournée (Dépot)
+            int max_semi_tr_at = 0;
+            int max_swap_body_tr = 0;
+            int max_swap_body_sm = 0;
+            
             Depot D = (Depot) arcs.get(0).getP1();
             for(Arc a : arcs){
-
-                str += "R"+t.getIdTournee()+";";
-                str +=  arcs.indexOf(a)+";";  
+                str += "R"+(t.getIdTournee()+1)+";"; // On indique le nom de la tournée
+                str += (arcs.indexOf(a)+1)+";"; // On indique la position de la localisation dans tournée
                 str += a.getP1().getNom()+";";
                 str += a.getP1().getType()+";";
-                if(a.getP1() instanceof Client){
-                    Client c = (Client) a.getP1();
-                    str += c.isDeliverableByTrain();
+               
+                // On check si on peut mettre une remorque
+                if(a.isRem())
+                    max_semi_tr_at = 1;
+                
+                str += max_semi_tr_at+";";
+                
+                str += "1;"; // SWAP BODY TRUCK 
+                
+                if(a.getP1() instanceof Client){ // On calcule le nombre de remorque dont on a besoin
+                    if(max_swap_body_sm < (int) (a.isRem()?Math.ceil(((Client)a.getP1()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0))
+                        max_swap_body_sm = (int) (a.isRem()?Math.ceil(((Client)a.getP1()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0);
+                    str += max_swap_body_sm+";"; // SWAP BODY SEMI TRAILER
                 }else{
-                    str += "0;";
+                    if(max_swap_body_sm < (int) (a.isRem()?Math.ceil(((Client)a.getP2()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0))
+                        max_swap_body_sm = (int) (a.isRem()?Math.ceil(((Client)a.getP2()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0);
+                    str += max_swap_body_sm+";"; // SWAP BODY SEMI TRAILER
                 }
+                
+                str += "NONE;"; // SWAP ACTION 
+                if(a.getP1() instanceof Client){ // On divise la commande en 2 quantités si besoin
+                    if(((Client)a.getP1()).getQuantiteCommandee()>Constante.SWAP_BODY_CAPACITY )
+                        str +=Constante.SWAP_BODY_CAPACITY+";"+(((Client)a.getP1()).getQuantiteCommandee()-Constante.SWAP_BODY_CAPACITY );
+                    else
+                        str +=((Client)a.getP1()).getQuantiteCommandee()+";0";
+                }else
+                    str += "0;0";
+                
                 str += "\n";
             }
-            str += "R"+t.getIdTournee()+";";
-            str += arcs.size()+";";
+            
+            // On créé la ligne de la dernière localisation de la tournée
+            str += "R"+(t.getIdTournee()+1)+";";
+            str += (arcs.size()+1)+";";
             str += D.getNom()+";";
             str += D.getType()+";";
-            str += "0;";
+            str += max_semi_tr_at+";"; 
+            str += "1;"; // SWAP BODY TRUCK 
+            str += max_swap_body_sm+";"; // SWAP BODY SEMI TRAILER
+            str += "NONE;"; // SWAP ACTION
+            str += "0;"; // SWAP BODY 1 QUANTITY
+            str += "0"; // SWAP BODY 2 QUANTITY
             str += "\n";
         }
         return str;

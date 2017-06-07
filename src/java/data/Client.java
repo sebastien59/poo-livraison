@@ -26,7 +26,6 @@ public class Client extends Point {
         this.tempsService = tempsService;
         this.quantiteCommandee = quantiteCommandee;
         this.remorque = rem;
-        System.out.println(rem);
     }
     
      public Client(int idClient, String nomClient, float tempsService, float quantiteCommandee, int id, String nom, float x, float y) {

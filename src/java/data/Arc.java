@@ -17,7 +17,7 @@ public class Arc {
     private double cost;  
     private Tournee t;
     private boolean rem;
-
+    
     public Arc(Point p1, Point p2, int nbRem) {
         this.p1 = p1;
         this.p2 = p2;
@@ -25,13 +25,14 @@ public class Arc {
         this.cost = Calculatron2000.getCostMatrixValue(p1, p2, nbRem);
     }
     
-    
     public Arc(Point p1, Client p2) {
-        this(p1, p2, (p2.getQuantiteCommandee() >= Constante.TRUCK_CAPACITY ? 1 : 0));
+        this(p1, p2, (p2.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY ? 1 : 0));
+        System.out.println("COND ::: "+p2.getNom()+"::::"+(p2.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
         p2.setArc(this);
     }
     public Arc(Client p1, Point p2) {
-        this(p1, p2, (p1.getQuantiteCommandee() >= Constante.TRUCK_CAPACITY ? 1 : 0));
+        this(p1, p2, (p1.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY ? 1 : 0));
+        System.out.println("COND ::: "+p1.getNom()+"::::"+(p1.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
         p1.setArc(this);
     }
 
