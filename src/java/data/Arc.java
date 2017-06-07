@@ -16,11 +16,12 @@ public class Arc {
     private Point p2;
     private double cost;  
     private Tournee t;
-    
+    private boolean rem;
 
     public Arc(Point p1, Point p2, int nbRem) {
         this.p1 = p1;
         this.p2 = p2;
+        this.rem = (nbRem == 1);
         this.cost = Calculatron2000.getCostMatrixValue(p1, p2, nbRem);
     }
     
@@ -40,6 +41,14 @@ public class Arc {
 
     public void setP1(Point p1) {
         this.p1 = p1;
+    }
+
+    public boolean isRem() {
+        return rem;
+    }
+
+    public void setRem(boolean rem) {
+        this.rem = rem;
     }
 
     public Point getP2() {
