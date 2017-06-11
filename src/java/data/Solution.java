@@ -97,6 +97,60 @@ public class Solution {
             ArrayList<Arc> arcs = (ArrayList)t.getArcs();
             
             // Utilisation des valeurs maximal comme variable tampon pour le dernier point de la tournée (Dépot)
+            Depot D = (Depot) arcs.get(0).getP1();
+            for(Arc a : arcs){
+                str += "R"+(t.getIdTournee()+1)+";"; // On indique le nom de la tournée
+                str += (arcs.indexOf(a)+1)+";"; // On indique la position de la localisation dans tournée
+                str += a.getP1().getNom()+";";
+                str += a.getP1().getType()+";";
+               
+                // On check si on peut mettre une remorque
+                
+                str += t.getMax_semi_tr_at()+";";
+                
+                str += t.getMax_swap_body_tr()+";"; // SWAP BODY TRUCK 
+                
+                str += t.getMax_swap_body_sm()+";"; // SWAP BODY SEMI TRAILER
+                
+                
+                str += "NONE;"; // SWAP ACTION 
+                if(a.getP1() instanceof Client){ // On divise la commande en 2 quantités si besoin
+                    if(((Client)a.getP1()).getQuantiteCommandee()>Constante.SWAP_BODY_CAPACITY )
+                        str +=Constante.SWAP_BODY_CAPACITY+";"+(((Client)a.getP1()).getQuantiteCommandee()-Constante.SWAP_BODY_CAPACITY );
+                    else
+                        str +=((Client)a.getP1()).getQuantiteCommandee()+";0";
+                }else
+                    str += "0;0";
+                
+                str += "\n";
+            }
+            
+            // On créé la ligne de la dernière localisation de la tournée
+            str += "R"+(t.getIdTournee()+1)+";";
+            str += (arcs.size()+1)+";";
+            str += D.getNom()+";";
+            str += D.getType()+";";
+            str += t.getMax_semi_tr_at()+";"; 
+            str += t.getMax_swap_body_tr()+";"; // SWAP BODY TRUCK 
+            str += t.getMax_swap_body_sm()+";"; // SWAP BODY SEMI TRAILER
+            str += "NONE;"; // SWAP ACTION
+            str += "0;"; // SWAP BODY 1 QUANTITY
+            str += "0"; // SWAP BODY 2 QUANTITY
+            str += "\n";
+        }
+        return str;
+    }
+
+    
+    /* @Override
+    public String toString() {
+        //Header du tableau
+        String str = "TOUR_ID;TOUR_POSITION;LOCATION_ID;LOCATION_TYPE;SEMI_TRAILER_ATTACHED;SWAP_BODY_TRUCK;SWAP_BODY_SEMI_TRAILER;SWAP_ACTION;SWAP_BODY_1_QUANTITY;SWAP_BODY_2_QUANTITY\n";
+        
+        for(Tournee t : tournees){
+            ArrayList<Arc> arcs = (ArrayList)t.getArcs();
+            
+            // Utilisation des valeurs maximal comme variable tampon pour le dernier point de la tournée (Dépot)
             int max_semi_tr_at = 0;
             int max_swap_body_tr = 0;
             int max_swap_body_sm = 0;
@@ -153,5 +207,5 @@ public class Solution {
         }
         return str;
     }
-
+    */
 }

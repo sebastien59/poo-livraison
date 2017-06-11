@@ -32,7 +32,7 @@ public class Solutionator {
         private Solution S;
 
     public Solutionator() {
-        String size = "large";
+        String size = "small";
         DistanceTimesP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
         FleetP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Fleet.csv");
         LocationsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Locations.csv");

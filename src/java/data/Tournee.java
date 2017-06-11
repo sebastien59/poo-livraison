@@ -22,7 +22,10 @@ public class Tournee {
     private double coutTotal;
     private float tempsTotal;
     private static int lastID = 0;
-
+    private int max_semi_tr_at = 0;
+    private int max_swap_body_tr = 0;
+    private int max_swap_body_sm = 0;
+    
     public Tournee(int idTournee, Vehicule vehicule, Collection<Arc> arcs, float coutTotal, float tempsTotal) {
         this.idTournee = idTournee;
         this.vehicule = vehicule;
@@ -68,10 +71,37 @@ public class Tournee {
             this.arcs = new ArrayList<Arc>();
         }
         a.setTournee(this);
+        this.max_semi_tr_at = (a.isRem())?1:0;
+        
+        if(a.getP1() instanceof Client){ // On calcule le nombre de remorque dont on a besoin
+            if(max_swap_body_sm < (int) (a.isRem()?Math.ceil(((Client)a.getP1()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0))
+                max_swap_body_sm = (int) (a.isRem()?Math.ceil(((Client)a.getP1()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0);   
+        }else{
+            if(max_swap_body_sm < (int) (a.isRem()?Math.ceil(((Client)a.getP2()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0))
+                max_swap_body_sm = (int) (a.isRem()?Math.ceil(((Client)a.getP2()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0);
+        }
+        
+        // TODO: Faire le test pour savoir quand le wap body truck vaut 1
+        max_swap_body_tr = 1; 
+        
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
     }
 
+    public int getMax_semi_tr_at() {
+        return max_semi_tr_at;
+    }
+
+    public int getMax_swap_body_tr() {
+        return max_swap_body_tr;
+    }
+
+    public int getMax_swap_body_sm() {
+        return max_swap_body_sm;
+    }
+
+    
+    
     public double getCoutTotal() {
         return coutTotal;
     }
