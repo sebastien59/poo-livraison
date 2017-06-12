@@ -11,7 +11,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-        <script async defer	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmuucqsL7NREv_CZF1jeSgdGXgMN43iso"></script>
         <link rel="stylesheet" type="text/css" href="../css/myStyle.css">
     </head>
     <body>

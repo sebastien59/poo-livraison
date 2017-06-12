@@ -106,7 +106,7 @@ public class UploadFile extends HttpServlet{
                             out.println("<br><br><h1>"+abc+"</h1><br><br>");  
                         } 
                     }
-                    response.sendRedirect("http://localhost:8080/WebApplicationAPP2_2017_Projet/vue/Solution.jsp");
+                    response.sendRedirect("http://localhost:8080/poo-livraison/vue/Solution.jsp");
                 }catch (FileUploadException e){  
                     out.println(e); 
                 }
