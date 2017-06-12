@@ -21,6 +21,10 @@ public class Depot extends Point{
         this.idDepot = idDepot;
         this.nomDepot = nomDepot;
     }
+    
+    public Depot() {
+        this("", "", 0, "", 0, 0);
+    }
 
     public String getIdDepot() {
         return idDepot;

@@ -21,6 +21,7 @@ public class Tournee {
     private Collection<Arc> arcs;
     private double coutTotal;
     private float tempsTotal;
+    private int type = 0;
     private static int lastID = 0;
     private int max_semi_tr_at = 0;
     private int max_swap_body_tr = 0;
@@ -67,6 +68,9 @@ public class Tournee {
     }
     
     public void addArc(Arc a) {
+        if (this.type == 0) {
+            this.type = (a.isRem() ? 1 : 0);
+        }
         if (this.arcs == null) {
             this.arcs = new ArrayList<Arc>();
         }
@@ -158,6 +162,10 @@ public class Tournee {
     @Override
     public String toString() {
         return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+    }
+
+    int getType() {
+        return this.type;
     }
     
     

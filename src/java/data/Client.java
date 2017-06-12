@@ -80,4 +80,11 @@ public class Client extends Point {
     public String toString() {
         return "Client{" + "idClient=" + idClient + ", nomClient=" + nomClient + ", tempsService=" + tempsService + ", quantiteCommandee=" + quantiteCommandee + ", remorque=" + remorque + '}';
     }
+
+    
+    // A GERER
+    // Retourner la tournée à laquelle le point est affecté
+    public Tournee getTournee() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
