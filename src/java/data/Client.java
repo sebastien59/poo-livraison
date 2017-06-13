@@ -77,7 +77,6 @@ public class Client extends Point {
         return this.a;
     }
 
-    @Override
     public String toString() {
         return "Client{" + "idClient=" + idClient + ", nomClient=" + nomClient + ", tempsService=" + tempsService + ", quantiteCommandee=" + quantiteCommandee + ", remorque=" + remorque + '}';
     }

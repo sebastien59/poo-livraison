@@ -192,4 +192,65 @@ public final class Optimizer {
         return retour;
     }
     
+    public void Optimiser(Point D){
+        
+        
+        Point pointPlusProche = plusProcheVoisin(D);
+        
+        if(pointPlusProche instanceof Depot){
+            
+            switch(pointPlusProche.getTypeP()){
+                case "T" :
+                    TtmtTrain(pointPlusProche); 
+                    break;
+                 
+                case "Tc" :
+                    TtmtTrainCamion(pointPlusProche); 
+                    break;
+                    
+                case "C" :
+                    TtmtCamion(pointPlusProche); 
+                    break;
+            }      
+        }
+    }
+    
+    
+    public void TtmtCamion(Point P1){
+        
+        Point P2 = plusProcheVoisin(P1);
+        
+        Tournee TourneeP1 = ((Client)P1).getTournee();
+        Tournee TourneeP2 = ((Client)P2).getTournee();
+        Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
+        
+        TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
+              
+        if(TourneeTotale.getCoutTotal() <= TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
+                       
+            sol.removeTournee(TourneeP2); 
+            ((Client) P1).setTournee(TourneeTotale);
+        }   
+    }
+
+    private void TtmtTrain(Point P1) {
+        Point P2 = plusProcheVoisin(P1);
+        
+        Tournee TourneeP1 = ((Client)P1).getTournee();
+        Tournee TourneeP2 = ((Client)P2).getTournee();
+        Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
+        
+        TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
+              
+        if(TourneeTotale.getCoutTotal() <= TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
+                       
+            sol.removeTournee(TourneeP2); 
+            ((Client) P1).setTournee(TourneeTotale);
+        }   
+    }
+
+    private void TtmtTrainCamion(Point P1) {
+        
+    }
+    
 }
