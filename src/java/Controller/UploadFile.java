@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Controller;
-/*
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,13 +22,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import metier.Solutionator;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
-*/
+
 //@MultipartConfig(maxFileSize = 1699999999)
 
 /**
@@ -36,7 +37,7 @@ import org.apache.commons.io.FilenameUtils;
  * @author Vincent
  */
 
-/*
+
 @WebServlet(name = "UploadFile", urlPatterns = {"/UploadFile"})
 public class UploadFile extends HttpServlet{
     
@@ -48,7 +49,7 @@ public class UploadFile extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String root = getServletContext().getRealPath("/");  
         try {
             boolean isMultipart = ServletFileUpload.isMultipartContent(request);
             response.setContentType("text/html;charset=UTF-8");
@@ -70,7 +71,7 @@ public class UploadFile extends HttpServlet{
                         if (!item.isFormField())  
                         {  
                             String fileName = item.getName();      
-                            String root = getServletContext().getRealPath("/");  
+                            
                             File path = new File(root + "/uploads");  
                             if (!path.exists()){  
                                 boolean status = path.mkdirs();  
@@ -83,7 +84,7 @@ public class UploadFile extends HttpServlet{
                                     item.write(uploadedFile);  
                                 }else{ 
                                     out.println("file not found");  
-                                    out.println("<h1>File Uploaded Successfully....:-)</h1>");  
+                                    out.println("<h1>File Uploaded Successfully....:-)</h1>");
                                 }
                             }else{
                                 boolean status2 = uploadedFile.delete();
@@ -91,7 +92,8 @@ public class UploadFile extends HttpServlet{
                                     System.out.println("successfully deleted");
                                     System.out.println(uploadedFile.getAbsolutePath());  
                                     if(fileName!=""){ 
-                                        item.write(uploadedFile);  
+                                        item.write(uploadedFile);
+                                        
                                     }else{ 
                                         out.println("file not found");  
                                         out.println("<h1>File Uploaded Successfully....:-)</h1>");  
@@ -106,7 +108,10 @@ public class UploadFile extends HttpServlet{
                             out.println("<br><br><h1>"+abc+"</h1><br><br>");  
                         } 
                     }
-                    response.sendRedirect("http://localhost:8080/WebApplicationAPP2_2017_Projet/vue/Solution.jsp");
+                    Solutionator.CreerSortie(root + "Donnees/Solution.csv");
+                    
+                    
+                    response.sendRedirect("vue/Solution.jsp");
                 }catch (FileUploadException e){  
                     out.println(e); 
                 }
@@ -118,4 +123,4 @@ public class UploadFile extends HttpServlet{
         }  
     } 
 }
-*/
+

@@ -4,19 +4,19 @@
     Author     : vincent
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Best Solutions</title>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2y0e-JdpOMMgJkwiN16jZExQ2fINrq2E"></script>
-    </head>
-    <body>
-        <jsp:include page="../header.jsp"/>
-        <div id="map">        
-        
-        
-        <jsp:include page="../footer.jsp"/>
-    </body>
-</html>
+<jsp:include page="../header.jsp"/>
+<div id="map"></div>
+<script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
+    }
+    
+    initMap();
+</script>
+
+
+<jsp:include page="../footer.jsp"/>
