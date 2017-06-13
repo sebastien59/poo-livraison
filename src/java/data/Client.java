@@ -18,6 +18,7 @@ public class Client extends Point {
     private double quantiteCommandee;
     private boolean remorque;
     private Arc a;
+    private Tournee T;
 
     public Client(int idClient, String nomClient, double tempsService, double quantiteCommandee, int id, String nom, double x, double y, boolean rem) {
         super(id, nom, x, y);
@@ -76,8 +77,17 @@ public class Client extends Point {
         return this.a;
     }
 
-    @Override
     public String toString() {
         return "Client{" + "idClient=" + idClient + ", nomClient=" + nomClient + ", tempsService=" + tempsService + ", quantiteCommandee=" + quantiteCommandee + ", remorque=" + remorque + '}';
+    }
+
+    
+    public void setTournee(Tournee T) {
+        this.T = T;
+    }
+    // A GERER
+    // Retourner la tournée à laquelle le point est affecté
+    public Tournee getTournee() {
+        return this.T;
     }
 }

@@ -108,9 +108,8 @@ public class UploadFile extends HttpServlet{
                             out.println("<br><br><h1>"+abc+"</h1><br><br>");  
                         } 
                     }
+
                     Solutionator.CreerSortie(root + "Donnees/Solution.csv");
-                    
-                    
                     response.sendRedirect("vue/Solution.jsp");
                 }catch (FileUploadException e){  
                     out.println(e); 

@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.Collection;
 import java.lang.Double;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,6 +20,7 @@ public abstract class Point extends Point2D.Double{
     
     private int id;
     private String nom;
+    private String type;
     
 
     public Point(int id, String nom, double x, double y) {
@@ -95,6 +97,27 @@ public abstract class Point extends Point2D.Double{
     @Override
     public String toString() {
         return "Point{" + "id=" + id + ", nom=" + nom + "}";
+    }
+
+    public String getTypeP() {
+        String c = this.getClass().toString();
+        
+        switch(c){
+            case "class data.Client" :
+                if (((Client) this).isDeliverableByTrain() && ((Client) this).getQuantiteCommandee() >= Constante.SEMI_TRAILER_CAPACITY) {
+                    return "T";
+                } else if (((Client) this).isDeliverableByTrain()) {
+                    return "Tc";
+                } else {
+                    return "C";
+                }
+            case "class data.Depot" :
+                return "D";
+            case "class data.Location" :
+                return "SL";
+            default:
+                return "";    
+        }
     }
 
 

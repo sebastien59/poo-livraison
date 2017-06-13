@@ -57,6 +57,11 @@ public class Solution {
         this.tournees.add(t);
         this.coutTotal+= t.getCoutTotal();
     }
+    
+    public void removeTournee(Tournee t) {
+        this.tournees.remove(t);
+        this.coutTotal-= t.getCoutTotal();
+    }
 
     @Override
     public int hashCode() {

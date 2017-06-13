@@ -14,6 +14,7 @@ import java.util.Collection;
 public final class Calculatron2000 {
     private static Matrice costMatrix;
     private static Matrice costMatrixRem;
+    private static Matrice tpsMatrix;
     
     //
     //
@@ -37,6 +38,7 @@ public final class Calculatron2000 {
     public static void calculateCostMatrix(Matrice M) {
         Calculatron2000.costMatrix = Calculatron2000.costMatrix(M);
         Calculatron2000.costMatrixRem = costMatrix(M, 1);
+        Calculatron2000.tpsMatrix = tpsMatrix(M);
     }
     
     public static Matrice getCostMatrix(int nbRem) {
@@ -45,6 +47,10 @@ public final class Calculatron2000 {
     
     public static Matrice getCostMatrix() {
         return Calculatron2000.getCostMatrix(0);
+    }
+    
+    public static double getTpsMatrixValue(Point x, Point y) {
+        return Calculatron2000.tpsMatrix.getCell(x.getId(), y.getId());
     }
     
     public static double getCostMatrixValue(int x, int y, int nbRem) {
@@ -82,5 +88,23 @@ public final class Calculatron2000 {
     }
     public static Matrice costMatrix(Matrice M) {
         return costMatrix(M, 0);
+    }
+    
+    public static Matrice tpsMatrix(Matrice M) {
+        //System.out.println(M);
+        Matrice MC = new Matrice(M.getX(), M.getY()/2);
+        for (int i = 1; i <= M.getX(); i++) {
+            //System.out.println("Ligne " + i);
+            for (int j = 1; j <= M.getY()/2; j++) {
+                //System.out.println("\tColonne " + j);
+                if (i == j) {
+                    MC.setContent(i, j, 0);
+                    //System.out.println("\t\t0");
+                } else {
+                    MC.setContent(i, j, M.getCell(i, j * 2));
+                }
+            }
+        }
+        return MC;
     }
 }

@@ -14,11 +14,16 @@ public class Train extends Vehicule {
     
     private int idTrain;
     private Swapbody remorque;
+    private static int lastID = 0;
 
     public Train(int idTrain, Swapbody remorque, int idVehicule, Swapbody chargement, float coutFixe, float coefTemps, float coefDistance) {
         super(idVehicule, chargement, coutFixe, coefTemps, coefDistance);
         this.idTrain = idTrain;
         this.remorque = remorque;
+    }
+
+    public Train() {
+        this(Train.lastID++, null,0,null,0,0,0);
     }
 
     public int getIdTrain() {

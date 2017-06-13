@@ -17,25 +17,24 @@ import java.util.Collection;
 public class Tournee {
     
     private int idTournee;
-    private Vehicule vehicule;
     private Collection<Arc> arcs;
     private double coutTotal;
     private float tempsTotal;
+    private int type = 0;
     private static int lastID = 0;
     private int max_semi_tr_at = 0;
     private int max_swap_body_tr = 0;
     private int max_swap_body_sm = 0;
     
-    public Tournee(int idTournee, Vehicule vehicule, Collection<Arc> arcs, float coutTotal, float tempsTotal) {
+    public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal) {
         this.idTournee = idTournee;
-        this.vehicule = vehicule;
         this.arcs = arcs;
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
     }
     
     public Tournee(int idTournee) {
-        this(idTournee, null, null, 0, 0);
+        this(idTournee, null, 0, 0);
     }
     
     public Tournee() {
@@ -50,13 +49,6 @@ public class Tournee {
         this.idTournee = idTournee;
     }
     
-    public Vehicule getVehicule() {
-        return vehicule;
-    }
-
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
-    }
 
     public Collection<Arc> getArcs() {
         return arcs;
@@ -67,6 +59,9 @@ public class Tournee {
     }
     
     public void addArc(Arc a) {
+        if (this.type == 0) {
+            this.type = (a.isRem() ? 1 : 0);
+        }
         if (this.arcs == null) {
             this.arcs = new ArrayList<Arc>();
         }
@@ -86,6 +81,7 @@ public class Tournee {
         
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
+        this.tempsTotal+= a.getTps();
     }
 
     public int getMax_semi_tr_at() {
@@ -157,7 +153,28 @@ public class Tournee {
 
     @Override
     public String toString() {
-        return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+        return "Tournee{" + "idTournee=" + idTournee + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+    }
+
+    int getType() {
+        return this.type;
+    }
+    
+    public boolean removeArc(Arc a) {
+        this.arcs.remove(a);
+        this.coutTotal -= a.getCost();
+        return true;
+    }
+    
+    public boolean addPoint(Point p, int rem) {
+        for (Arc a : this.arcs) {
+            if (a.getP2() instanceof Depot) {
+                this.removeArc(a);
+                this.addArc(new Arc(a.getP1(), p, rem, null));
+                return true;
+            }
+        }
+        return false;
     }
     
     
