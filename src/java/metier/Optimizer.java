@@ -67,7 +67,7 @@ public final class Optimizer {
     // D - enlève les dépôts
     // Q - check contrainte quantité
     // H - check contraine temps
-    public Collection<Point> filtrer(Collection<Point> lp, String criteria, double q, double t) {
+    public Collection<Point> filtrer(Point origin, Collection<Point> lp, String criteria, double q, double t) {
         if ("".equals(criteria)) return lp;
         Predicate<Point> predi = null;
         Predicate<Point> prediTemp = null;
@@ -124,7 +124,7 @@ public final class Optimizer {
         }
         if (criteria.contains("Q")) {
             prediTemp = (Point p) -> {
-                return (p.getType().equals("CUSTOMER") && (((Client) p).getTournee().getMax_swap_body_sm() <= q));
+                return (p.getType().equals("CUSTOMER") && (((Client) p).getQuantiteCommandee() <= q));
             };
             if (predi == null) {
                 predi = prediTemp;
@@ -132,55 +132,47 @@ public final class Optimizer {
                 predi = predi.and(prediTemp);
             }
         }
-        /* Non géré, il faut ajouter "distance" dans arc/tournée
+
         if (criteria.contains("H")) {
             prediTemp = (Point p) -> {
-                return (p.getType().equals("CUSTOMER") && (((Client) p).getTournee().getMax_swap_body_sm() <= q));
+                return (new Arc(origin, p, 0).getTps() <= t);
             };
             if (predi == null) {
                 predi = prediTemp;
             } else {
                 predi = predi.and(prediTemp);
             }
-        }*/
+        }
         lp.removeIf(predi);
         return lp;
     }
     
-    public Collection<Point> filtrer(Collection<Point> lp, String criteria) {
-        return filtrer(lp, criteria, 0, 0);
+    public Collection<Point> filtrer(Point origin, Collection<Point> lp, String criteria) {
+        // TODO : Constante TMax à la place du "1" final
+        return filtrer(origin, lp, criteria, Constante.SEMI_TRAILER_CAPACITY, 1);
     }
+    
         
-    public Point plusProcheVoisin(Point P, Tournee T) {
+    public Point plusProcheVoisin(Point P) {
         Collection listePoint = listeNonTraites;
         Point retour;
-        /*Predicate<Client> clientCamionPredicate = p -> (p.getType().equals("DEPOT") || p.getType().equals("LOCATION") || (p.isDeliverableByTrain() && p.getQuantiteCommandee() >= Constante.SEMI_TRAILER_CAPACITY));
-        Predicate<Client> clientTrainPredicate = p -> (p.getType().equals("DEPOT") || (!p.isDeliverableByTrain()));
-        Predicate<Point> constraintPredicate = 
-                p -> (
-                    
-                )*/
-        // Gérer type de tournée plutôt
         switch (P.getTypeP()) {
             case "T":
-                listePoint = filtrer(listePoint, "DCL");
-                //listePoint.removeIf(clientCamionPredicate);
+                listePoint = filtrer(P, listePoint, "DCL");
             case "C":
-                listePoint = filtrer(listePoint, "DTL");
-                //listePoint.removeIf(clientTrainPredicate);
+                listePoint = filtrer(P, listePoint, "DTL");
             case "SL":
-                listePoint = filtrer(listePoint, "DTL");
-                //listePoint.removeIf(clientCamionPredicate);
+                listePoint = filtrer(P, listePoint, "DTL");
                 if (listePoint.isEmpty()) return new Depot();
             default:
-                listePoint = filtrer(listePoint, "DL");
+                listePoint = filtrer(P, listePoint, "DL");
         }
-        listePoint = filtrer(listePoint, "QH");
+        listePoint = filtrer(P, listePoint, "QH");
         if (listePoint.isEmpty()) {
             listePoint = listeNonTraites;
             switch (P.getTypeP()) {
                 case "T":
-                    listePoint = filtrer(listePoint, "DTCtcH");
+                    listePoint = filtrer(P, listePoint, "DTCtcH");
                     if (listePoint.isEmpty()) return new Depot();
                 case "C":
                     return new Depot();
@@ -194,7 +186,7 @@ public final class Optimizer {
         }
         retour = P.getClosest(listePoint);
         if (retour instanceof Swaplocation) {
-            if (plusProcheVoisin(retour, T) instanceof Depot) return new Depot();
+            if (plusProcheVoisin(retour) instanceof Depot) return new Depot();
         }
         
         return retour;

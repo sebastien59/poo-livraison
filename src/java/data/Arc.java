@@ -15,6 +15,7 @@ public class Arc {
     private Point p1;
     private Point p2;
     private double cost;  
+    private double tps;
     private Tournee t;
     private boolean rem;
     
@@ -23,6 +24,7 @@ public class Arc {
         this.p2 = p2;
         this.rem = (nbRem == 1);
         this.cost = Calculatron2000.getCostMatrixValue(p1, p2, nbRem);
+        this.tps = Calculatron2000.getTpsMatrixValue(p1, p2);
     }
     
     public Arc(Point p1, Client p2) {
@@ -35,6 +37,7 @@ public class Arc {
         System.out.println("COND ::: "+p1.getNom()+"::::"+(p1.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
         p1.setArc(this);
     }
+
 
     public Point getP1() {
         return p1;
@@ -68,12 +71,18 @@ public class Arc {
         this.cost = cost;
     }
     
+    public double getTps() {
+        return this.tps;
+    }
+    
     public Tournee getTournee() {
         return this.t;
     }
     
     public void setTournee(Tournee t) {
         this.t = t;
+        if (this.p1 instanceof Client) ((Client)this.p1).setTournee(t);
+        if (this.p2 instanceof Client) ((Client)this.p2).setTournee(t);
     }
    
     @Override
