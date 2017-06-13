@@ -18,6 +18,7 @@ public class Client extends Point {
     private double quantiteCommandee;
     private boolean remorque;
     private Arc a;
+    private Tournee T;
 
     public Client(int idClient, String nomClient, double tempsService, double quantiteCommandee, int id, String nom, double x, double y, boolean rem) {
         super(id, nom, x, y);
@@ -82,9 +83,12 @@ public class Client extends Point {
     }
 
     
+    public void setTournee(Tournee T) {
+        this.T = T;
+    }
     // A GERER
     // Retourner la tournée à laquelle le point est affecté
     public Tournee getTournee() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.T;
     }
 }

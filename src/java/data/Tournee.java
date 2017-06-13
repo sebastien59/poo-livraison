@@ -90,6 +90,7 @@ public class Tournee {
         
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
+        this.tempsTotal+= a.getTps();
     }
 
     public int getMax_semi_tr_at() {
@@ -166,6 +167,23 @@ public class Tournee {
 
     int getType() {
         return this.type;
+    }
+    
+    public boolean removeArc(Arc a) {
+        this.arcs.remove(a);
+        this.coutTotal -= a.getCost();
+        return true;
+    }
+    
+    public boolean addPoint(Point p, int rem) {
+        for (Arc a : this.arcs) {
+            if (a.getP2() instanceof Depot) {
+                this.removeArc(a);
+                this.addArc(new Arc(a.getP1(), p, rem));
+                return true;
+            }
+        }
+        return false;
     }
     
     
