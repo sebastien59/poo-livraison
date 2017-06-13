@@ -54,4 +54,54 @@ public final class Optimizer {
     private static Solution getOptimizedSolution(Collection<Point> points, Point depot) {
         return getOptimizedSolution(1, points, depot);
     }
+    
+    private Optimizer(Point Depart){
+        Point p = PointPlusProche(Depart);
+
+        if(Depart instanceof Depot){
+            
+            /*switch (p.getTypeP()){
+                case "T":
+                    TtmtCamion(p);
+                    break;
+                case "Tc":
+                    TtmtTrain(p);
+                    break;
+                case "C":
+                    TtmtTrainCamion(p);
+                    break;
+                default : 
+                    System.err.println("Undefined type");
+                    break;
+            }*/
+        }
+        
+    }
+       
+    public void TtmtCamion(Point P1 ){
+        Point P2 = PointPlusProche(P1);
+        
+        //int CoutP1 = P1.getT().getCout();
+        //int CoutP2 = P2.getT().getCout();
+        /*int CoutTotale = P1.getT().add(Point(P2).getCout);
+        
+        if(P1+P2 < CoutTotale){
+            sol.add(Point(P2).getT());
+        }
+        //Supprime p pour la liste de point de tournée de la solution 
+            P1.get
+        */
+    }
+    
+    private void TtmtTrain(Point p){    
+        System.err.println("TtmtTrain");
+    }
+    
+    private void TtmtTrainCamion(Point p){    
+        System.err.println("TtmtTrainCamion");
+    }
+    
+    private Point PointPlusProche(Point D) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
