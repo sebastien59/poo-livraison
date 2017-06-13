@@ -84,7 +84,7 @@ public class Solutionator {
 
        
         cout = S.getCoutTotal();
-        System.out.println("Cout total :" + cout);
+        System.out.println("Cout total : " + cout);
         System.out.println("\n -------------------- SOLUTION ---------------- \n");
         return S.toString();
         

@@ -8,15 +8,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" http-equiv="Content-Type" content="initial-scale=1.0, user-scalable=no">
         <title>Best Solutions</title>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2y0e-JdpOMMgJkwiN16jZExQ2fINrq2E"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2y0e-JdpOMMgJkwiN16jZExQ2fINrq2E&sencor=false"></script>
+        <script> var map;
+            function initialize() {
+              var mapOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(48.844471, 2.346896)
+              };
+              map = new google.maps.Map(document.getElementById('map'),
+                  mapOptions);
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
     </head>
-    <body>
+    <body onload="initialize()">
         <jsp:include page="../header.jsp"/>
-        <div id="map">        
-        
-        
+        <div id="map"></div>      
         <jsp:include page="../footer.jsp"/>
     </body>
+    
+        
+    
 </html>
