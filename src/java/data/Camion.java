@@ -14,11 +14,16 @@ public class Camion extends Vehicule{
     
     private int idCamion;
     private String nom; //pas obligatoire
+    private static int lastID = 0;
 
     public Camion(int idCamion, String nom, int idVehicule, Swapbody chargement, float coutFixe, float coefTemps, float coefDistance) {
         super(idVehicule, chargement, coutFixe, coefTemps, coefDistance);
         this.idCamion = idCamion;
         this.nom = nom;
+    }
+
+    public Camion() {
+        this(Camion.lastID++,"",0,null,0,0,0);
     }
 
     public int getIdCamion() {
