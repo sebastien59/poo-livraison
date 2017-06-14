@@ -170,7 +170,7 @@ public class Tournee {
         for (Arc a : this.arcs) {
             if (a.getP2() instanceof Depot) {
                 this.removeArc(a);
-                this.addArc(new Arc(a.getP1(), p, rem));
+                this.addArc(new Arc(a.getP1(), p, rem, null));
                 return true;
             }
         }
