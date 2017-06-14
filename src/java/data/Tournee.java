@@ -179,16 +179,12 @@ public class Tournee {
     }
     
     public boolean addPoint(Point p, int rem) {
-        for (Arc a : this.arcs) {
-            if (a.getP2() instanceof Depot) {
-                this.removeArc(a);
-                this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
-                return true;
+
         if (this.modeSL) {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Swaplocation) {
                     this.removeArc(a);
-                    this.addArc(new Arc(a.getP1(), p, rem));
+                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
                     this.addArc(a);
                 }
             }
@@ -196,7 +192,7 @@ public class Tournee {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Depot) {
                     this.removeArc(a);
-                    this.addArc(new Arc(a.getP1(), p, rem, null));
+                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee() ));
                     this.addArc(a);
                     return true;
                 }
@@ -232,9 +228,9 @@ public class Tournee {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Depot) {
                     this.removeArc(a);
-                    this.addArc(new Arc(SL, P, 0));
-                    this.addArc(new Arc(P, SL, 0));
-                    this.addArc(new Arc(SL, a.getP2(), 1));
+                    this.addArc(new Arc(SL, P, 0, null, ((Client)P).getQuantiteCommandee()));
+                    this.addArc(new Arc(P, SL, 0,null, ((Client)SL).getQuantiteCommandee()));
+                    this.addArc(new Arc(SL, a.getP2(), 1, null, ((Client)a.getP2()).getQuantiteCommandee()));
                 }
             }
             //this.addPoint(P1, 1);

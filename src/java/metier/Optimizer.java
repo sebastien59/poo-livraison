@@ -140,7 +140,7 @@ public final class Optimizer {
 
         if (criteria.contains("H")) {
             prediTemp = (Point p) -> {
-                return (new Arc(origin, p, 0).getTps() <= t);
+                return (new Arc(origin, p, 0, null, ((Client) origin).getQuantiteCommandee()).getTps() <= t);
             };
             if (predi == null) {
                 predi = prediTemp;
