@@ -87,23 +87,23 @@ public class Solutionator {
         System.out.println("Cout total : " + cout);
         System.out.println("\n -------------------- SOLUTION ---------------- \n");
         return S.toString();
-        
     }
     
-    public static void main(String[] args) throws IOException {
+    public static void CreerSortie(String file) throws IOException{
         Solutionator S = new Solutionator();
         String solutionStr = S.triviale();
        
         System.out.println(solutionStr);
         
-        File f = new File("Solution.csv");
+        File f = new File(file);
         f.delete();
         
-        FileWriter fileWriter = new FileWriter("Solution.csv",true);
+        FileWriter fileWriter = new FileWriter(file,true);
         fileWriter.write(solutionStr);
         fileWriter.close(); 
+    }   
+    
+    public static void main(String[] args) throws IOException {
+        Solutionator.CreerSortie("Solution.csv");
     }
- 
 }
-
-

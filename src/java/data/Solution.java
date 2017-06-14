@@ -92,7 +92,7 @@ public class Solution {
         return coutTotal;
     }
     
-   
+    
     @Override
     public String toString() {
         //Header du tableau
