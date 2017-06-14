@@ -12,12 +12,13 @@ and open the template in the editor.
 
 
 body {
-  color:black;
-  background-color:white;
-  background-attachment:fixed; 
-  background-repeat:no-repeat; 
-  background-position:center center; 
-  background-size:cover; 
+    margin: 0;
+    color:black;
+    background-color:white;
+    background-attachment:fixed; 
+    background-repeat:no-repeat; 
+    background-position:center center; 
+    background-size:cover; 
 }
       
 #bbox {
@@ -46,13 +47,16 @@ body {
 	padding: 8px;
 }
 
+#container {
+     height: 100vh;
+   }
+   
+.navbar{
+    margin-bottom: 0vh !important;
+}
+
 #map { 
-    height: 500px;
-    margin-top: 2%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    border: 2px solid red;
+    height: 100vh;
 }
 
 
