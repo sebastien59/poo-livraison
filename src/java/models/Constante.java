@@ -24,27 +24,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "CONSTANTE")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Constante.findAll", query = "SELECT c FROM Constante c"),
-    @NamedQuery(name = "Constante.findByIdconstante", query = "SELECT c FROM Constante c WHERE c.idconstante = :idconstante"),
-    @NamedQuery(name = "Constante.findByPark", query = "SELECT c FROM Constante c WHERE c.park = :park"),
-    @NamedQuery(name = "Constante.findBySwap", query = "SELECT c FROM Constante c WHERE c.swap = :swap"),
-    @NamedQuery(name = "Constante.findByExchange", query = "SELECT c FROM Constante c WHERE c.exchange = :exchange"),
-    @NamedQuery(name = "Constante.findByPickup", query = "SELECT c FROM Constante c WHERE c.pickup = :pickup"),
-    @NamedQuery(name = "Constante.findByTruckCapacity", query = "SELECT c FROM Constante c WHERE c.truckCapacity = :truckCapacity"),
-    @NamedQuery(name = "Constante.findByTruckCostKm", query = "SELECT c FROM Constante c WHERE c.truckCostKm = :truckCostKm"),
-    @NamedQuery(name = "Constante.findByTruckCostH", query = "SELECT c FROM Constante c WHERE c.truckCostH = :truckCostH"),
-    @NamedQuery(name = "Constante.findByTruckCostUsage", query = "SELECT c FROM Constante c WHERE c.truckCostUsage = :truckCostUsage"),
-    @NamedQuery(name = "Constante.findByTruckOperatingTime", query = "SELECT c FROM Constante c WHERE c.truckOperatingTime = :truckOperatingTime"),
-    @NamedQuery(name = "Constante.findBySemiTrailerCapacity", query = "SELECT c FROM Constante c WHERE c.semiTrailerCapacity = :semiTrailerCapacity"),
-    @NamedQuery(name = "Constante.findBySemiTrailerCostKm", query = "SELECT c FROM Constante c WHERE c.semiTrailerCostKm = :semiTrailerCostKm"),
-    @NamedQuery(name = "Constante.findBySemiTrailerCostH", query = "SELECT c FROM Constante c WHERE c.semiTrailerCostH = :semiTrailerCostH"),
-    @NamedQuery(name = "Constante.findBySemiTrailerCostUsage", query = "SELECT c FROM Constante c WHERE c.semiTrailerCostUsage = :semiTrailerCostUsage"),
-    @NamedQuery(name = "Constante.findBySemiTrailerOperatingTime", query = "SELECT c FROM Constante c WHERE c.semiTrailerOperatingTime = :semiTrailerOperatingTime"),
-    @NamedQuery(name = "Constante.findBySwapBodyCapacity", query = "SELECT c FROM Constante c WHERE c.swapBodyCapacity = :swapBodyCapacity"),
-    @NamedQuery(name = "Constante.findBySwapBodyCostKm", query = "SELECT c FROM Constante c WHERE c.swapBodyCostKm = :swapBodyCostKm"),
-    @NamedQuery(name = "Constante.findBySwapBodyCostH", query = "SELECT c FROM Constante c WHERE c.swapBodyCostH = :swapBodyCostH"),
-    @NamedQuery(name = "Constante.findBySwapBodyCostUsage", query = "SELECT c FROM Constante c WHERE c.swapBodyCostUsage = :swapBodyCostUsage"),
-    @NamedQuery(name = "Constante.findBySwapBodyOperatingTime", query = "SELECT c FROM Constante c WHERE c.swapBodyOperatingTime = :swapBodyOperatingTime")})
+    @NamedQuery(name = "Constante.findAll", query = "SELECT c FROM Constante c")
+    , @NamedQuery(name = "Constante.findByIdconstante", query = "SELECT c FROM Constante c WHERE c.idconstante = :idconstante")
+    , @NamedQuery(name = "Constante.findByPark", query = "SELECT c FROM Constante c WHERE c.park = :park")
+    , @NamedQuery(name = "Constante.findBySwap", query = "SELECT c FROM Constante c WHERE c.swap = :swap")
+    , @NamedQuery(name = "Constante.findByExchange", query = "SELECT c FROM Constante c WHERE c.exchange = :exchange")
+    , @NamedQuery(name = "Constante.findByPickup", query = "SELECT c FROM Constante c WHERE c.pickup = :pickup")
+    , @NamedQuery(name = "Constante.findByTruckCapacity", query = "SELECT c FROM Constante c WHERE c.truckCapacity = :truckCapacity")
+    , @NamedQuery(name = "Constante.findByTruckCostKm", query = "SELECT c FROM Constante c WHERE c.truckCostKm = :truckCostKm")
+    , @NamedQuery(name = "Constante.findByTruckCostH", query = "SELECT c FROM Constante c WHERE c.truckCostH = :truckCostH")
+    , @NamedQuery(name = "Constante.findByTruckCostUsage", query = "SELECT c FROM Constante c WHERE c.truckCostUsage = :truckCostUsage")
+    , @NamedQuery(name = "Constante.findByTruckOperatingTime", query = "SELECT c FROM Constante c WHERE c.truckOperatingTime = :truckOperatingTime")
+    , @NamedQuery(name = "Constante.findBySemiTrailerCapacity", query = "SELECT c FROM Constante c WHERE c.semiTrailerCapacity = :semiTrailerCapacity")
+    , @NamedQuery(name = "Constante.findBySemiTrailerCostKm", query = "SELECT c FROM Constante c WHERE c.semiTrailerCostKm = :semiTrailerCostKm")
+    , @NamedQuery(name = "Constante.findBySemiTrailerCostH", query = "SELECT c FROM Constante c WHERE c.semiTrailerCostH = :semiTrailerCostH")
+    , @NamedQuery(name = "Constante.findBySemiTrailerCostUsage", query = "SELECT c FROM Constante c WHERE c.semiTrailerCostUsage = :semiTrailerCostUsage")
+    , @NamedQuery(name = "Constante.findBySemiTrailerOperatingTime", query = "SELECT c FROM Constante c WHERE c.semiTrailerOperatingTime = :semiTrailerOperatingTime")
+    , @NamedQuery(name = "Constante.findBySwapBodyCapacity", query = "SELECT c FROM Constante c WHERE c.swapBodyCapacity = :swapBodyCapacity")
+    , @NamedQuery(name = "Constante.findBySwapBodyCostKm", query = "SELECT c FROM Constante c WHERE c.swapBodyCostKm = :swapBodyCostKm")
+    , @NamedQuery(name = "Constante.findBySwapBodyCostH", query = "SELECT c FROM Constante c WHERE c.swapBodyCostH = :swapBodyCostH")
+    , @NamedQuery(name = "Constante.findBySwapBodyCostUsage", query = "SELECT c FROM Constante c WHERE c.swapBodyCostUsage = :swapBodyCostUsage")
+    , @NamedQuery(name = "Constante.findBySwapBodyOperatingTime", query = "SELECT c FROM Constante c WHERE c.swapBodyOperatingTime = :swapBodyOperatingTime")})
 public class Constante implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,49 +52,70 @@ public class Constante implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDCONSTANTE")
-    public static Integer idconstante;
+    private Integer idconstante;
     @Column(name = "PARK")
-    public static Integer PARK;
+    private Integer park;
     @Column(name = "SWAP")
-    public static Integer SWAP;
+    private Integer swap;
     @Column(name = "EXCHANGE")
-    public static Integer EXCHANGE;
+    private Integer exchange;
     @Column(name = "PICKUP")
-    public static Integer PICKUP;
+    private Integer pickup;
     @Column(name = "TRUCK_CAPACITY")
-    public static Integer TRUCK_CAPACITY;
+    private Integer truckCapacity;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "TRUCK_COST_KM")
-    public static Double TRUCK_COST_KM;
+    private Double truckCostKm;
     @Column(name = "TRUCK_COST_H")
-    public static Double TRUCK_COST_H;
+    private Double truckCostH;
     @Column(name = "TRUCK_COST_USAGE")
-    public static Double TRUCK_COST_USAGE;
+    private Double truckCostUsage;
     @Column(name = "TRUCK_OPERATING_TIME")
-    public static Integer TRUCK_OPERATING_TIME;
+    private Integer truckOperatingTime;
     @Column(name = "SEMI_TRAILER_CAPACITY")
-    public static Integer SEMI_TRAILER_CAPACITY;
+    private Integer semiTrailerCapacity;
     @Column(name = "SEMI_TRAILER_COST_KM")
-    public static Double SEMI_TRAILER_COST_KM;
+    private Double semiTrailerCostKm;
     @Column(name = "SEMI_TRAILER_COST_H")
-    public static Double SEMI_TRAILER_COST_H;
+    private Double semiTrailerCostH;
     @Column(name = "SEMI_TRAILER_COST_USAGE")
-    public static Double SEMI_TRAILER_COST_USAGE;
+    private Double semiTrailerCostUsage;
     @Column(name = "SEMI_TRAILER_OPERATING_TIME")
-    public static Integer SEMI_TRAILER_OPERATING_TIME;
+    private Integer semiTrailerOperatingTime;
     @Column(name = "SWAP_BODY_CAPACITY")
-    public static Integer SWAP_BODY_CAPACITY;
+    private Integer swapBodyCapacity;
     @Column(name = "SWAP_BODY_COST_KM")
-    public static Double SWAP_BODY_COST_KM;
+    private Double swapBodyCostKm;
     @Column(name = "SWAP_BODY_COST_H")
-    public static Double SWAP_BODY_COST_H;
+    private Double swapBodyCostH;
     @Column(name = "SWAP_BODY_COST_USAGE")
-    public static Double SWAP_BODY_COST_USAGE;
+    private Double swapBodyCostUsage;
     @Column(name = "SWAP_BODY_OPERATING_TIME")
-    public static Integer SWAP_BODY_OPERATING_TIME;
-    @Id
-    private Long id;
+    private Integer swapBodyOperatingTime;
 
+    public static int PARK;
+    public static int SWAP;
+    public static int EXCHANGE;
+    public static int PICKUP;
+    
+    public static int TRUCK_CAPACITY;
+    public static double TRUCK_COST_KM;
+    public static double TRUCK_COST_H;
+    public static double TRUCK_COST_USAGE;
+    public static int TRUCK_OPERATING_TIME;
+    
+    public static int SEMI_TRAILER_CAPACITY;
+    public static double SEMI_TRAILER_COST_KM;
+    public static double SEMI_TRAILER_COST_H;
+    public static double SEMI_TRAILER_COST_USAGE;
+    public static int SEMI_TRAILER_OPERATING_TIME;
+    
+    public static int SWAP_BODY_CAPACITY;
+    public static double SWAP_BODY_COST_KM;
+    public static double SWAP_BODY_COST_H;
+    public static double SWAP_BODY_COST_USAGE;
+    public static int SWAP_BODY_OPERATING_TIME;
+    
     public Constante() {
     }
 
@@ -110,159 +131,176 @@ public class Constante implements Serializable {
         this.idconstante = idconstante;
     }
 
-    public static Integer getPARK() {
-        return PARK;
+    public Integer getPark() {
+        return park;
     }
 
-    public static void setPARK(Integer PARK) {
-        Constante.PARK = PARK;
+    public void setPark(Integer park) {
+        this.park = park;
+        Constante.PARK = park;
     }
 
-    public static Integer getSWAP() {
-        return SWAP;
+    public Integer getSwap() {
+        return swap;
     }
 
-    public static void setSWAP(Integer SWAP) {
-        Constante.SWAP = SWAP;
+    public void setSwap(Integer swap) {
+        this.swap = swap;
+        Constante.SWAP = swap;
     }
 
-    public static Integer getEXCHANGE() {
-        return EXCHANGE;
+    public Integer getExchange() {
+        return exchange;
     }
 
-    public static void setEXCHANGE(Integer EXCHANGE) {
-        Constante.EXCHANGE = EXCHANGE;
+    public void setExchange(Integer exchange) {
+        this.exchange = exchange;
+        Constante.EXCHANGE = exchange;
     }
 
-    public static Integer getPICKUP() {
-        return PICKUP;
+    public Integer getPickup() {
+        return pickup;
     }
 
-    public static void setPICKUP(Integer PICKUP) {
-        Constante.PICKUP = PICKUP;
+    public void setPickup(Integer pickup) {
+        this.pickup = pickup;
+        Constante.PICKUP = pickup;
     }
 
-    public static Integer getTRUCK_CAPACITY() {
-        return TRUCK_CAPACITY;
+    public Integer getTruckCapacity() {
+        return truckCapacity;
     }
 
-    public static void setTRUCK_CAPACITY(Integer TRUCK_CAPACITY) {
-        Constante.TRUCK_CAPACITY = TRUCK_CAPACITY;
+    public void setTruckCapacity(Integer truckCapacity) {
+        this.truckCapacity = truckCapacity;
+        Constante.TRUCK_CAPACITY = truckCapacity;
     }
 
-    public static Double getTRUCK_COST_KM() {
-        return TRUCK_COST_KM;
+    public Double getTruckCostKm() {
+        return truckCostKm;
     }
 
-    public static void setTRUCK_COST_KM(Double TRUCK_COST_KM) {
-        Constante.TRUCK_COST_KM = TRUCK_COST_KM;
+    public void setTruckCostKm(Double truckCostKm) {
+        this.truckCostKm = truckCostKm;
+        Constante.TRUCK_COST_KM = truckCostKm;
     }
 
-    public static Double getTRUCK_COST_H() {
-        return TRUCK_COST_H;
+    public Double getTruckCostH() {
+        return truckCostH;
     }
 
-    public static void setTRUCK_COST_H(Double TRUCK_COST_H) {
-        Constante.TRUCK_COST_H = TRUCK_COST_H;
+    public void setTruckCostH(Double truckCostH) {
+        this.truckCostH = truckCostH;
+        Constante.TRUCK_COST_H = truckCostH;
     }
 
-    public static Double getTRUCK_COST_USAGE() {
-        return TRUCK_COST_USAGE;
+    public Double getTruckCostUsage() {
+        return truckCostUsage;
     }
 
-    public static void setTRUCK_COST_USAGE(Double TRUCK_COST_USAGE) {
-        Constante.TRUCK_COST_USAGE = TRUCK_COST_USAGE;
+    public void setTruckCostUsage(Double truckCostUsage) {
+        this.truckCostUsage = truckCostUsage;
+        Constante.TRUCK_COST_USAGE = truckCostUsage;
     }
 
-    public static Integer getTRUCK_OPERATING_TIME() {
-        return TRUCK_OPERATING_TIME;
+    public Integer getTruckOperatingTime() {
+        return truckOperatingTime;
     }
 
-    public static void setTRUCK_OPERATING_TIME(Integer TRUCK_OPERATING_TIME) {
-        Constante.TRUCK_OPERATING_TIME = TRUCK_OPERATING_TIME;
+    public void setTruckOperatingTime(Integer truckOperatingTime) {
+        this.truckOperatingTime = truckOperatingTime;
+        Constante.TRUCK_OPERATING_TIME = truckOperatingTime;
     }
 
-    public static Integer getSEMI_TRAILER_CAPACITY() {
-        return SEMI_TRAILER_CAPACITY;
+    public Integer getSemiTrailerCapacity() {
+        return semiTrailerCapacity;
     }
 
-    public static void setSEMI_TRAILER_CAPACITY(Integer SEMI_TRAILER_CAPACITY) {
-        Constante.SEMI_TRAILER_CAPACITY = SEMI_TRAILER_CAPACITY;
+    public void setSemiTrailerCapacity(Integer semiTrailerCapacity) {
+        this.semiTrailerCapacity = semiTrailerCapacity;
+        Constante.SEMI_TRAILER_CAPACITY = semiTrailerCapacity;
     }
 
-    public static Double getSEMI_TRAILER_COST_KM() {
-        return SEMI_TRAILER_COST_KM;
+    public Double getSemiTrailerCostKm() {
+        return semiTrailerCostKm;
     }
 
-    public static void setSEMI_TRAILER_COST_KM(Double SEMI_TRAILER_COST_KM) {
-        Constante.SEMI_TRAILER_COST_KM = SEMI_TRAILER_COST_KM;
+    public void setSemiTrailerCostKm(Double semiTrailerCostKm) {
+        this.semiTrailerCostKm = semiTrailerCostKm;
+        Constante.SEMI_TRAILER_COST_KM = semiTrailerCostKm;
     }
 
-    public static Double getSEMI_TRAILER_COST_H() {
-        return SEMI_TRAILER_COST_H;
+    public Double getSemiTrailerCostH() {
+        return semiTrailerCostH;
     }
 
-    public static void setSEMI_TRAILER_COST_H(Double SEMI_TRAILER_COST_H) {
-        Constante.SEMI_TRAILER_COST_H = SEMI_TRAILER_COST_H;
+    public void setSemiTrailerCostH(Double semiTrailerCostH) {
+        this.semiTrailerCostH = semiTrailerCostH;
+        Constante.SEMI_TRAILER_COST_H = semiTrailerCostH;
     }
 
-    public static Double getSEMI_TRAILER_COST_USAGE() {
-        return SEMI_TRAILER_COST_USAGE;
+    public Double getSemiTrailerCostUsage() {
+        return semiTrailerCostUsage;
     }
 
-    public static void setSEMI_TRAILER_COST_USAGE(Double SEMI_TRAILER_COST_USAGE) {
-        Constante.SEMI_TRAILER_COST_USAGE = SEMI_TRAILER_COST_USAGE;
+    public void setSemiTrailerCostUsage(Double semiTrailerCostUsage) {
+        this.semiTrailerCostUsage = semiTrailerCostUsage;
+        Constante.SEMI_TRAILER_COST_USAGE = semiTrailerCostUsage;
     }
 
-    public static Integer getSEMI_TRAILER_OPERATING_TIME() {
-        return SEMI_TRAILER_OPERATING_TIME;
+    public Integer getSemiTrailerOperatingTime() {
+        return semiTrailerOperatingTime;
     }
 
-    public static void setSEMI_TRAILER_OPERATING_TIME(Integer SEMI_TRAILER_OPERATING_TIME) {
-        Constante.SEMI_TRAILER_OPERATING_TIME = SEMI_TRAILER_OPERATING_TIME;
+    public void setSemiTrailerOperatingTime(Integer semiTrailerOperatingTime) {
+        this.semiTrailerOperatingTime = semiTrailerOperatingTime;
+        Constante.SEMI_TRAILER_OPERATING_TIME = semiTrailerOperatingTime;
     }
 
-    public static Integer getSWAP_BODY_CAPACITY() {
-        return SWAP_BODY_CAPACITY;
+    public Integer getSwapBodyCapacity() {
+        return swapBodyCapacity;
     }
 
-    public static void setSWAP_BODY_CAPACITY(Integer SWAP_BODY_CAPACITY) {
-        Constante.SWAP_BODY_CAPACITY = SWAP_BODY_CAPACITY;
+    public void setSwapBodyCapacity(Integer swapBodyCapacity) {
+        this.swapBodyCapacity = swapBodyCapacity;
+        Constante.SWAP_BODY_CAPACITY = swapBodyCapacity;
     }
 
-    public static Double getSWAP_BODY_COST_KM() {
-        return SWAP_BODY_COST_KM;
+    public Double getSwapBodyCostKm() {
+        return swapBodyCostKm;
     }
 
-    public static void setSWAP_BODY_COST_KM(Double SWAP_BODY_COST_KM) {
-        Constante.SWAP_BODY_COST_KM = SWAP_BODY_COST_KM;
+    public void setSwapBodyCostKm(Double swapBodyCostKm) {
+        this.swapBodyCostKm = swapBodyCostKm;
+        Constante.SWAP_BODY_COST_KM = swapBodyCostKm;
     }
 
-    public static Double getSWAP_BODY_COST_H() {
-        return SWAP_BODY_COST_H;
+    public Double getSwapBodyCostH() {
+        return swapBodyCostH;
     }
 
-    public static void setSWAP_BODY_COST_H(Double SWAP_BODY_COST_H) {
-        Constante.SWAP_BODY_COST_H = SWAP_BODY_COST_H;
+    public void setSwapBodyCostH(Double swapBodyCostH) {
+        this.swapBodyCostH = swapBodyCostH;
+        Constante.SWAP_BODY_COST_H = swapBodyCostH;
     }
 
-    public static Double getSWAP_BODY_COST_USAGE() {
-        return SWAP_BODY_COST_USAGE;
+    public Double getSwapBodyCostUsage() {
+        return swapBodyCostUsage;
     }
 
-    public static void setSWAP_BODY_COST_USAGE(Double SWAP_BODY_COST_USAGE) {
-        Constante.SWAP_BODY_COST_USAGE = SWAP_BODY_COST_USAGE;
+    public void setSwapBodyCostUsage(Double swapBodyCostUsage) {
+        this.swapBodyCostUsage = swapBodyCostUsage;
+        Constante.SWAP_BODY_COST_USAGE = swapBodyCostUsage;
     }
 
-    public static Integer getSWAP_BODY_OPERATING_TIME() {
-        return SWAP_BODY_OPERATING_TIME;
+    public Integer getSwapBodyOperatingTime() {
+        return swapBodyOperatingTime;
     }
 
-    public static void setSWAP_BODY_OPERATING_TIME(Integer SWAP_BODY_OPERATING_TIME) {
-        Constante.SWAP_BODY_OPERATING_TIME = SWAP_BODY_OPERATING_TIME;
+    public void setSwapBodyOperatingTime(Integer swapBodyOperatingTime) {
+        this.swapBodyOperatingTime = swapBodyOperatingTime;
+        Constante.SWAP_BODY_OPERATING_TIME = swapBodyOperatingTime;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -287,14 +325,6 @@ public class Constante implements Serializable {
     @Override
     public String toString() {
         return "models.Constante[ idconstante=" + idconstante + " ]";
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
     
 }

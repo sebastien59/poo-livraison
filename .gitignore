@@ -4,3 +4,4 @@ web/WEB-INF/glassfish-web.xml
 /build/
 /dist/
 nbproject/project.properties
+Solution.csv

@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author sebastien
  */
-@Entity
+/*@Entity
 @Table(name = "POINT")
 @XmlRootElement
 @NamedQueries({
@@ -35,27 +35,27 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Point.findByIdpoint", query = "SELECT p FROM Point p WHERE p.idpoint = :idpoint"),
     @NamedQuery(name = "Point.findByNom", query = "SELECT p FROM Point p WHERE p.nom = :nom"),
     @NamedQuery(name = "Point.findByX", query = "SELECT p FROM Point p WHERE p.x = :x"),
-    @NamedQuery(name = "Point.findByY", query = "SELECT p FROM Point p WHERE p.y = :y")})
-public class Point extends Point2D.Double implements Serializable {
+    @NamedQuery(name = "Point.findByY", query = "SELECT p FROM Point p WHERE p.y = :y")})*/
+public class Point extends Point2D.Double /*implements Serializable*/ {
 
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "X")
-    private java.lang.Double x;
-    @Column(name = "Y")
-    private java.lang.Double y;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "npoint")
+    //@Column(name = "X")
+    private double x;
+    //@Column(name = "Y")
+    private double y;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "npoint")
     private Collection<Swaplocation> swaplocationCollection;
 
-    private static final long serialVersionUID = 1L;
+    /*private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDPOINT")
+    @Column(name = "IDPOINT")*/
     private Integer idpoint;
-    @Size(max = 45)
-    @Column(name = "NOM")
+    /*@Size(max = 45)
+    @Column(name = "NOM")*/
     private String nom;
-    @ManyToMany(mappedBy = "pointCollection")
+    //@ManyToMany(mappedBy = "pointCollection")
     private Collection<Arc> arcCollection;
 
     public Point() {
@@ -67,7 +67,7 @@ public class Point extends Point2D.Double implements Serializable {
         this.x = x;
         this.y = y;
     }
-    public Integer getIdpoint() {
+    public Integer getId() {
         return idpoint;
     }
 
@@ -137,7 +137,7 @@ public class Point extends Point2D.Double implements Serializable {
         return x;
     }
 
-    public void setX(java.lang.Double x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -145,7 +145,7 @@ public class Point extends Point2D.Double implements Serializable {
         return y;
     }
 
-    public void setY(java.lang.Double y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -157,5 +157,42 @@ public class Point extends Point2D.Double implements Serializable {
     public void setSwaplocationCollection(Collection<Swaplocation> swaplocationCollection) {
         this.swaplocationCollection = swaplocationCollection;
     }
+    
+    public String getTypeP() {
+        String c = this.getClass().toString();
+        
+        switch(c){
+            case "class models.Client" :
+                if (((Client) this).isDeliverableByTrain() && ((Client) this).getQuantiteCommandee() >= Constante.SEMI_TRAILER_CAPACITY) {
+                    return "T";
+                } else if (((Client) this).isDeliverableByTrain()) {
+                    return "Tc";
+                } else {
+                    return "C";
+                }
+            case "class models.Depot" :
+                return "D";
+            case "class models.Location" :
+                return "SL";
+            default:
+                return "";    
+        }
+    }
+
+
+   public String getType(){
+        String c = this.getClass().toString();
+        
+        switch(c){
+            case "class models.Client" :
+                   return "CUSTOMER";
+            case "class models.Depot" :
+                   return "DEPOT";
+            case "class models.Location" :
+                   return "LOCATION";
+            default:
+                return "";    
+        }
+    }    
     
 }

@@ -20,21 +20,24 @@ public class Tournee {
     private Collection<Arc> arcs;
     private double coutTotal;
     private float tempsTotal;
+    private float quantiteTotal;
     private int type = 0;
     private static int lastID = 0;
     private int max_semi_tr_at = 0;
     private int max_swap_body_tr = 0;
     private int max_swap_body_sm = 0;
+    private boolean modeSL = false;
     
-    public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal) {
+    public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal, float quantiteTotal) {
         this.idTournee = idTournee;
         this.arcs = arcs;
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
+        this.quantiteTotal = quantiteTotal;
     }
     
     public Tournee(int idTournee) {
-        this(idTournee, null, 0, 0);
+        this(idTournee, null, 0, 0, 0);
     }
     
     public Tournee() {
@@ -82,6 +85,7 @@ public class Tournee {
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
         this.tempsTotal+= a.getTps();
+        this.quantiteTotal+=a.getQuantite();
     }
 
     public int getMax_semi_tr_at() {
@@ -113,6 +117,14 @@ public class Tournee {
     public void setTempsTotal(float tempsTotal) {
         this.tempsTotal = tempsTotal;
     }
+
+    public float getQuantiteTotal() {
+        return quantiteTotal;
+    }
+
+    public void setQuantiteTotal(float quantiteTotal) {
+        this.quantiteTotal = quantiteTotal;
+    }  
     
     public Collection<Point> getPoints() {
         Collection<Point> points = new ArrayList<>();
@@ -153,7 +165,7 @@ public class Tournee {
 
     @Override
     public String toString() {
-        return "Tournee{" + "idTournee=" + idTournee + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+        return "Tournee{" + "idTournee=" + idTournee + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + ", quantiteTotal=" + quantiteTotal + '}';
     }
 
     int getType() {
@@ -167,15 +179,62 @@ public class Tournee {
     }
     
     public boolean addPoint(Point p, int rem) {
-        for (Arc a : this.arcs) {
-            if (a.getP2() instanceof Depot) {
-                this.removeArc(a);
-                this.addArc(new Arc(a.getP1(), p, rem, null));
-                return true;
+
+        if (this.modeSL) {
+            for (Arc a : this.arcs) {
+                if (a.getP2() instanceof Swaplocation) {
+                    this.removeArc(a);
+                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
+                    this.addArc(a);
+                }
+            }
+        } else {
+            for (Arc a : this.arcs) {
+                if (a.getP2() instanceof Depot) {
+                    this.removeArc(a);
+                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee() ));
+                    this.addArc(a);
+                    return true;
+                }
             }
         }
         return false;
     }
+
+    public void changeVehicule(Train train) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    public boolean changeVehicule(Vehicule v) {
+        for (Arc a : this.arcs) {
+            a.setVehicule(v);
+        }
+        return true;
+    }
+
+    public int getQuantiteCommandee() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void addSL() {
+        this.modeSL = false;
+    }
     
+    public void addSL(Point SL, Point P) {
+        if (this.modeSL) {
+            this.modeSL = false;
+        } else {
+            this.addPoint(SL, 1);
+            for (Arc a : this.arcs) {
+                if (a.getP2() instanceof Depot) {
+                    this.removeArc(a);
+                    this.addArc(new Arc(SL, P, 0, null, ((Client)P).getQuantiteCommandee()));
+                    this.addArc(new Arc(P, SL, 0,null, ((Client)SL).getQuantiteCommandee()));
+                    this.addArc(new Arc(SL, a.getP2(), 1, null, ((Client)a.getP2()).getQuantiteCommandee()));
+                }
+            }
+            //this.addPoint(P1, 1);
+            this.modeSL = true;
+        }
+    }
 }

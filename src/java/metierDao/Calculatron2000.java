@@ -5,7 +5,8 @@
  */
 package metierDao;
 import metier.*;
-import data.*;
+import models.*;
+import data.Matrice;
 import java.util.ArrayList;
 import java.util.Collection;
 /**
