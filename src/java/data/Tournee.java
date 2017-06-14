@@ -20,21 +20,23 @@ public class Tournee {
     private Collection<Arc> arcs;
     private double coutTotal;
     private float tempsTotal;
+    private float quantiteTotal;
     private int type = 0;
     private static int lastID = 0;
     private int max_semi_tr_at = 0;
     private int max_swap_body_tr = 0;
     private int max_swap_body_sm = 0;
     
-    public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal) {
+    public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal, float quantiteTotal) {
         this.idTournee = idTournee;
         this.arcs = arcs;
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
+        this.quantiteTotal = quantiteTotal;
     }
     
     public Tournee(int idTournee) {
-        this(idTournee, null, 0, 0);
+        this(idTournee, null, 0, 0, 0);
     }
     
     public Tournee() {
@@ -113,6 +115,14 @@ public class Tournee {
     public void setTempsTotal(float tempsTotal) {
         this.tempsTotal = tempsTotal;
     }
+
+    public float getQuantiteTotal() {
+        return quantiteTotal;
+    }
+
+    public void setQuantiteTotal(float quantiteTotal) {
+        this.quantiteTotal = quantiteTotal;
+    }  
     
     public Collection<Point> getPoints() {
         Collection<Point> points = new ArrayList<>();

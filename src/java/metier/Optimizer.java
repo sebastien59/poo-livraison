@@ -223,24 +223,6 @@ public final class Optimizer {
             listeNonTraites.remove(P1);
             return;
         } 
-       
-        Tournee TourneeP1 = ((Client)P1).getTournee();
-        Tournee TourneeP2 = ((Client)P2).getTournee();
-        Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
-        
-        TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
-              
-        if(TourneeTotale.getCoutTotal() < TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
-                       
-            sol.removeTournee(TourneeP2); 
-            ((Client) P1).setTournee(TourneeTotale);
-        }   
-    }
-
-    private void TtmtTrain(Point P1) {
-           
-        Point P2 = plusProcheVoisin(P1);
-        
         if(P2.getTypeP()!="SL"){
             Tournee TourneeP1 = ((Client)P1).getTournee();
             Tournee TourneeP2 = ((Client)P2).getTournee();
@@ -252,8 +234,36 @@ public final class Optimizer {
 
                 sol.removeTournee(TourneeP2); 
                 ((Client) P1).setTournee(TourneeTotale);
-            }   
+            }    
         }else{
+            Optimiser(P2);
+            
+        }
+    }
+
+    private void TtmtTrain(Point P1) {
+           
+        Point P2 = plusProcheVoisin(P1);
+        if(P2 instanceof Depot){
+            listeNonTraites.remove(P1);
+            return;
+        } 
+        if(P2.getTypeP()=="T" ){
+            Tournee TourneeP1 = ((Client)P1).getTournee();
+            Tournee TourneeP2 = ((Client)P2).getTournee();
+            Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
+
+            TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
+
+            if(TourneeTotale.getCoutTotal() < TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
+
+                sol.removeTournee(TourneeP2); 
+                ((Client) P1).setTournee(TourneeTotale);
+            }   
+        }else if(P2.getTypeP()=="SL"){
+            //ajouter SL à la tournee
+            //changer le type de tournee
+            //relancer un optimiser(P2);
             Optimiser(P1);
         }
        
@@ -262,27 +272,43 @@ public final class Optimizer {
     private void TtmtTrainCamion(Point P1) {
         
         Point P2 = plusProcheVoisin(P1);
+        if(P2 instanceof Depot){
+            listeNonTraites.remove(P1);
+            return;
+        } 
         
-        if(P2.getTypeP() == "SL"){
-            TtmtSwapLocation(P2);
-        }else if(P2.getTypeP() == "C" ){
+        
+        if(P2.getTypeP() == "C" ){
             TtmtCamion(P2);
         }else if(P2.getTypeP() == "T" ){
             TtmtTrain(P2);
         }else if(P2.getTypeP() == "Tc" ){
-            //envoyer camion et rappeler Ttmtcamion
+            
+            Tournee TourneeTotale = ((Client)P1).getTournee();
+            TourneeTotale.addPoint(P2, 0);
+            
+            if(TourneeTotale.getQuantiteCommandee() > 1){
+                
+            }        
+            //Point PointAlternatif = 
+        }else if(P2.getTypeP() == "SL"){
+            TtmtSwapLocation(P2);
         }
     }
     
     private void TtmtSwapLocation(Point P1){
         
-        /*Point P2 = plusProcheVoisin(P1);
+          
+        //ajouter SL à la tournee
+        //changer le type de tournee
+        //relancer un optimiser(P1);
         
+        Point P2 = plusProcheVoisin(P1);  
         if(P2.getTypeP() == "Tc"){
             TtmtCamion(P2);
         }else if(P2.getTypeP() == "C" ){
             TtmtCamion(P2);
-        }*/
+        }
     }
     
 }
