@@ -5,3 +5,4 @@ web/WEB-INF/glassfish-web.xml
 /dist/
 nbproject/project.properties
 src/java/META-INF/persistence.xml
+Solution.csv
