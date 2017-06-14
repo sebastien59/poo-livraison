@@ -264,7 +264,7 @@ public final class Optimizer {
             //ajouter SL à la tournee
             //changer le type de tournee
             //relancer un optimiser(P2);
-            Optimiser(P1);
+            //Optimiser(P1);
         }
        
     }
@@ -286,11 +286,11 @@ public final class Optimizer {
             
             Tournee TourneeTotale = ((Client)P1).getTournee();
             TourneeTotale.addPoint(P2, 0);
-            
-            if(TourneeTotale.getQuantiteCommandee() > 1){
-                
-            }        
-            //Point PointAlternatif = 
+            if(TourneeTotale.getQuantiteTotal() > Constante.SEMI_TRAILER_CAPACITY) { //on change de type de véhicule
+                TourneeTotale.changeVehicule(new Train());
+            }else{
+                TtmtCamion(P2);
+            }
         }else if(P2.getTypeP() == "SL"){
             TtmtSwapLocation(P2);
         }
@@ -300,7 +300,7 @@ public final class Optimizer {
         
           
         //ajouter SL à la tournee
-        //changer le type de tournee
+        //changer le type de vehicule sur les arcs
         //relancer un optimiser(P1);
         
         Point P2 = plusProcheVoisin(P1);  

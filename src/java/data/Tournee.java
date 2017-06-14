@@ -84,6 +84,7 @@ public class Tournee {
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
         this.tempsTotal+= a.getTps();
+        this.quantiteTotal+=a.getQuantite();
     }
 
     public int getMax_semi_tr_at() {
@@ -163,7 +164,7 @@ public class Tournee {
 
     @Override
     public String toString() {
-        return "Tournee{" + "idTournee=" + idTournee + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+        return "Tournee{" + "idTournee=" + idTournee + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + ", quantiteTotal=" + quantiteTotal + '}';
     }
 
     int getType() {
@@ -180,11 +181,15 @@ public class Tournee {
         for (Arc a : this.arcs) {
             if (a.getP2() instanceof Depot) {
                 this.removeArc(a);
-                this.addArc(new Arc(a.getP1(), p, rem, null));
+                this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
                 return true;
             }
         }
         return false;
+    }
+
+    public void changeVehicule(Train train) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
