@@ -24,5 +24,7 @@ public class Tests {
         DepotDao    DepotManager = DaoFactory.getDaoFactory(type).getDepotDao();
         ClientDao    ClientManager = DaoFactory.getDaoFactory(type).getClientDao();
         ConstanteDao ConstanteManager = DaoFactory.getDaoFactory(type).getConstanteDao();
+        
+        DepotManager.create(new Depot("D1",  "D1", 0, "DEPOTPOPOPO", 2.3, 4.89));
     }
 }

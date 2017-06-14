@@ -9,13 +9,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,12 +38,12 @@ public class Solution implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDSOLUTION")
     private Integer idSolution;
-    @JoinColumn(name = "NTOURNEE", referencedColumnName = "IDTOURNEE")
-    @ManyToOne(optional = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "solution")
     private Collection<Tournee> tournees;
 
     private double coutTotal;
@@ -81,6 +85,7 @@ public class Solution implements Serializable {
         if (this.tournees == null) {
             this.tournees = new ArrayList<Tournee>();
         }
+        t.setSolution(this);
         this.tournees.add(t);
         this.coutTotal+= t.getCoutTotal();
     }
@@ -116,7 +121,7 @@ public class Solution implements Serializable {
             // Utilisation des valeurs maximal comme variable tampon pour le dernier point de la tournée (Dépot)
             Depot D = (Depot) arcs.get(0).getP1();
             for(Arc a : arcs){
-                str += "R"+(t.getIdTournee()+1)+";"; // On indique le nom de la tournée
+//                str += "R"+(t.getIdTournee()+1)+";"; // On indique le nom de la tournée
                 str += (arcs.indexOf(a)+1)+";"; // On indique la position de la localisation dans tournée
                 str += a.getP1().getNom()+";";
                 str += a.getP1().getType()+";";
@@ -143,11 +148,12 @@ public class Solution implements Serializable {
             }
             
             // On créé la ligne de la dernière localisation de la tournée
-            str += "R"+(t.getIdTournee()+1)+";";
+     //       str += "R"+(t.getIdTournee()+1)+";";
             str += (arcs.size()+1)+";";
             str += D.getNom()+";";
             str += D.getType()+";";
-            str += t.getMaxSemiTrailerAttached()+";";    
+            str += t.getMaxSemiTrailerAttached()+";";
+    
             str += t.getMaxSwapBodyTr()+";"; // SWAP BODY TRUCK 
             str += t.getMaxSwapBodySm()+";"; // SWAP BODY SEMI TRAILER    
             str += "NONE;"; // SWAP ACTION

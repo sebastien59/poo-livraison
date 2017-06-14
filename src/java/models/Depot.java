@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,6 +36,7 @@ public class Depot extends Point implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDDEPOT")
@@ -43,7 +46,7 @@ public class Depot extends Point implements Serializable {
     private String nomDepot;
     /*@JoinColumn(name = "NPOINT", referencedColumnName = "IDPOINT")
     @ManyToOne(optional = false)*/
-    private Point npoint;
+    //private Point npoint;
 
     public Depot() {
     }
@@ -69,13 +72,13 @@ public class Depot extends Point implements Serializable {
         this.nomDepot = nomDepot;
     }
 
-    public Point getNpoint() {
+   /* public Point getNpoint() {
         return npoint;
     }
 
     public void setNpoint(Point npoint) {
         this.npoint = npoint;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -99,7 +102,7 @@ public class Depot extends Point implements Serializable {
 
     @Override
     public String toString() {
-        return "Depot{" + "idDepot=" + idDepot + ", nomDepot=" + nomDepot + ", npoint=" + npoint + '}';
+        return "Depot{" + "idDepot=" + idDepot + ", nomDepot=" + nomDepot + "}";
     }
 
    

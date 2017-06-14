@@ -11,6 +11,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -48,6 +50,7 @@ public class Arc implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDARC")
@@ -157,8 +160,9 @@ public class Arc implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Arc[ idarc=" + idarc + " ]";
+        return "Arc{" + "cost=" + cost + ", rem=" + rem + ", tps=" + tps + ", idarc=" + idarc + ", pointCollection=" + pointCollection + ", ntournee=" + ntournee + ", nvehicule=" + nvehicule + '}';
     }
+
 
     public double getCost() {
         return cost;
@@ -185,7 +189,4 @@ public class Arc implements Serializable {
     public double getTps() {
         return tps;
     }
-    
-    
-    
 }

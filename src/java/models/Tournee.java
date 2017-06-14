@@ -12,7 +12,10 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -43,6 +46,7 @@ public class Tournee implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDTOURNEE")
@@ -58,8 +62,8 @@ public class Tournee implements Serializable {
     private Integer max_swap_body_tr;
     @Column(name = "MAX_SWAP_BODY_SM")
     private Integer max_swap_body_sm;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ntournee")
-    private Collection<Solution> solutions;
+    @ManyToOne(optional = false)
+    private Solution solution;
 
     private int type = 0;
     
@@ -130,12 +134,12 @@ public class Tournee implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Solution> getSolutionCollection() {
-        return solutions;
+    public Solution getSolution() {
+        return solution;
     }
 
-    public void setSolutionCollection(Collection<Solution> solutionCollection) {
-        this.solutions = solutionCollection;
+    public void setSolution(Solution solution) {
+        this.solution = solution;
     }
 
     @Override
@@ -186,9 +190,6 @@ public class Tournee implements Serializable {
             if(max_swap_body_sm < (int) (a.isRem()?Math.ceil(((Client)a.getP1()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0))
                 max_swap_body_sm = (int) (a.isRem()?Math.ceil(((Client)a.getP1()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0);   
         }else{
-            System.out.println("test1");
-            System.out.println(max_swap_body_sm);
-            System.out.println("test2");
             if(max_swap_body_sm < (int) (a.isRem()?Math.ceil(((Client) a.getP2()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0))
                 max_swap_body_sm = (int) (a.isRem()?Math.ceil(((Client) a.getP2()).getQuantiteCommandee()/Constante.SWAP_BODY_CAPACITY ):0);
         }
