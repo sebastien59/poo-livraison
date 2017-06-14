@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,10 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Swaplocation extends Point implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    /*@Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDSWAPLOCATION")*/
+    @Column(name = "IDSWAPLOCATION")
     private Integer idSwapLocation;
     @Size(max = 45)
     @Column(name = "NAME")
@@ -50,9 +53,9 @@ public class Swaplocation extends Point implements Serializable {
     private double tempsAction;
     @OneToMany(mappedBy = "swaplocation")
     private Collection<Swapbody> swapbodys;
-    @JoinColumn(name = "NPOINT", referencedColumnName = "IDPOINT")
+    /*@JoinColumn(name = "NPOINT", referencedColumnName = "IDPOINT")
     @ManyToOne(optional = false)
-    private Point npoint;
+    private Point npoint;*/
 
     public Swaplocation() {
     }
@@ -98,13 +101,13 @@ public class Swaplocation extends Point implements Serializable {
         this.swapbodys = swapbodyCollection;
     }
 
-    public Point getNpoint() {
+    /*public Point getNpoint() {
         return npoint;
     }
 
     public void setNpoint(Point npoint) {
         this.npoint = npoint;
-    }
+    }*/
 
     @Override
     public int hashCode() {

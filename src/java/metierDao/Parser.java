@@ -31,6 +31,7 @@ public class Parser {
     private int nbColumn;
     private Depot depot;
     private List<Client> clients;
+    private Constante Const = new Constante();
     
     public Parser(String file) {
         this.file = file;
@@ -86,16 +87,16 @@ public class Parser {
         
         switch(line){
             case 2:
-                Constante.PARK = Integer.parseInt(values[1]);
+                Const.setPark(Integer.parseInt(values[1]));
                 break;
             case 3:
-                Constante.SWAP = Integer.parseInt(values[1]);
+                Const.setSwap(Integer.parseInt(values[1]));
                 break;
             case 4:
-                Constante.EXCHANGE = Integer.parseInt(values[1]);
+                Const.setExchange(Integer.parseInt(values[1]));
                 break;
             case 5:
-                Constante.PICKUP = Integer.parseInt(values[1]);
+                Const.setPickup(Integer.parseInt(values[1]));
                 break;
         }
     }
@@ -105,25 +106,25 @@ public class Parser {
         
         switch(line){
             case 2:
-                Constante.TRUCK_CAPACITY = Integer.parseInt(values[1]);
-                Constante.TRUCK_COST_KM = Double.parseDouble(values[2]);
-                Constante.TRUCK_COST_H = Double.parseDouble(values[3]);
-                Constante.TRUCK_COST_USAGE = Double.parseDouble(values[4]);
-                Constante.TRUCK_OPERATING_TIME = Integer.parseInt(values[5]);
+                Const.setTruckCapacity(Integer.parseInt(values[1]));
+                Const.setTruckCostKm(Double.parseDouble(values[2]));
+                Const.setTruckCostH(Double.parseDouble(values[3]));
+                Const.setTruckCostUsage(Double.parseDouble(values[4]));
+                Const.setTruckOperatingTime(Integer.parseInt(values[5]));
                 break;
             case 3:
-                Constante.SEMI_TRAILER_CAPACITY = Integer.parseInt(values[1]);
-                Constante.SEMI_TRAILER_COST_KM = Double.parseDouble(values[2]);
-                Constante.SEMI_TRAILER_COST_H = Double.parseDouble(values[3]);
-                Constante.SEMI_TRAILER_COST_USAGE = Double.parseDouble(values[4]);
-                Constante.SEMI_TRAILER_OPERATING_TIME = Integer.parseInt(values[5]);
+                Const.setSemiTrailerCapacity(Integer.parseInt(values[1]));
+                Const.setSemiTrailerCostKm(Double.parseDouble(values[2]));
+                Const.setSemiTrailerCostH(Double.parseDouble(values[3]));
+                Const.setSemiTrailerCostUsage(Double.parseDouble(values[4]));
+                Const.setSemiTrailerOperatingTime(Integer.parseInt(values[5]));
                 break;
             case 4:
-                Constante.SWAP_BODY_CAPACITY = Integer.parseInt(values[1]);
-                Constante.SWAP_BODY_COST_KM = Double.parseDouble(values[2]);
-                Constante.SWAP_BODY_COST_H = Double.parseDouble(values[3]);
-                Constante.SWAP_BODY_COST_USAGE = Double.parseDouble(values[4]);
-                Constante.SWAP_BODY_OPERATING_TIME = Integer.parseInt(values[5]);
+                Const.setSwapBodyCapacity(Integer.parseInt(values[1]));
+                Const.setSwapBodyCostKm(Double.parseDouble(values[2]));
+                Const.setSwapBodyCostH(Double.parseDouble(values[3]));
+                Const.setSwapBodyCostUsage(Double.parseDouble(values[4]));
+                Const.setSwapBodyOperatingTime(Integer.parseInt(values[5]));
                 break;
         }
     }
@@ -144,25 +145,7 @@ public class Parser {
         
     }
     
-    public void parseDistanceTimesData(String str, int line){
-        String[] values = str.split(";");
-        this.nbColumn = values.length;
-        
-        switch(line){
-            case 2:
-                Constante.PARK = Integer.parseInt(values[1]);
-                break;
-            case 3:
-                Constante.SWAP = Integer.parseInt(values[1]);
-                break;
-            case 4:
-                Constante.EXCHANGE = Integer.parseInt(values[1]);
-                break;
-            case 5:
-                Constante.PICKUP = Integer.parseInt(values[1]);
-                break;
-        }
-    }
+    
       
     public Matrice makeMatrice() throws FileNotFoundException, IOException{
         int nbC = this.nbColumn;

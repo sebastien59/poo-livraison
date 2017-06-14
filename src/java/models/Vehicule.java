@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Vehicule.findAll", query = "SELECT v FROM Vehicule v"),
     @NamedQuery(name = "Vehicule.findByIdvehicule", query = "SELECT v FROM Vehicule v WHERE v.idVehicule = :idVehicule"),
     @NamedQuery(name = "Vehicule.findByCoutfixe", query = "SELECT v FROM Vehicule v WHERE v.coutFixe = :coutFixe"),
-    @NamedQuery(name = "Vehicule.findByCoeftemp", query = "SELECT v FROM Vehicule v WHERE v.coeftemp = :coeftemp"),
+    @NamedQuery(name = "Vehicule.findByCoeftemp", query = "SELECT v FROM Vehicule v WHERE v.coefTemps = :coefTemps"),
     @NamedQuery(name = "Vehicule.findByCoefdistance", query = "SELECT v FROM Vehicule v WHERE v.coefDistance = :coefDistance")})
 public class Vehicule implements Serializable {
 
@@ -42,6 +44,7 @@ public class Vehicule implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "IDVEHICULE")
@@ -49,7 +52,7 @@ public class Vehicule implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "COUTFIXE")
     private double coutFixe;
-    @Column(name = "COEFTEMP")
+    @Column(name = "COEFTEMPS")
     private double coefTemps;
     @Column(name = "COEFDISTANCE")
     private double coefDistance;

@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -39,10 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Client extends Point implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    /*@Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IDCLIENT")*/
+    @Column(name = "IDCLIENT")
     private Integer idclient;
     @Size(max = 45)
     @Column(name = "NOMCLIENT")
@@ -54,9 +57,12 @@ public class Client extends Point implements Serializable {
     private double quantiteCommandee;
     @Column(name = "REMORQUE")
     private boolean remorque;
-    @JoinColumn(name = "NPOINT", referencedColumnName = "IDPOINT")
+    /*@JoinColumn(name = "NPOINT", referencedColumnName = "IDPOINT")
     @ManyToOne(optional = false)
-    private Point npoint;
+    private Point npoint;*/
+    @JoinColumn(name = "NTOURNEE", referencedColumnName = "IDTOURNEE")
+    @ManyToOne(optional = false)
+    private Tournee ntournee;
     
     @JoinColumn(name = "ARC", referencedColumnName="IDARC")
     private Arc a;
@@ -113,13 +119,13 @@ public class Client extends Point implements Serializable {
         return remorque;
     }
 
-    public Point getNpoint() {
+    /*public Point getNpoint() {
         return npoint;
     }
 
     public void setNpoint(Point npoint) {
         this.npoint = npoint;
-    }
+    }*/
     
      public void setArc(Arc a) {
         this.a = a;
@@ -143,12 +149,16 @@ public class Client extends Point implements Serializable {
             return false;
         }
         Client other = (Client) object;
-        return !((this.getIdpoint() == null && other.getIdpoint() != null) || (this.getIdpoint() != null && !this.getIdpoint().equals(other.getIdpoint())));
+        return !((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId())));
     }
 
     @Override
     public String toString() {
         return "models.Client[ idclient=" + idclient + " ]";
+    }
+    
+    public void setTournee(Tournee T) {
+        this.ntournee = T;
     }
     
 }

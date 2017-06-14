@@ -32,6 +32,7 @@ public abstract class JpaDao<T> implements Dao<T>{
             et.commit();
             return true;
         }catch (Exception ex) {
+            System.out.println(ex);
             et.rollback();
         }
 
@@ -48,6 +49,7 @@ public abstract class JpaDao<T> implements Dao<T>{
             et.commit();
             return true;
         }catch (Exception ex) {
+            System.out.println(ex);
             et.rollback();
         }
 
@@ -63,6 +65,7 @@ public abstract class JpaDao<T> implements Dao<T>{
             et.commit();
             return true;
         }catch (Exception ex) {
+            System.out.println(ex);
             et.rollback();
         }
         return false;
