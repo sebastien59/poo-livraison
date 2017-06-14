@@ -28,6 +28,10 @@ public class Arc {
         this.vehicule=vehicule;
     }
     
+    public Arc(Point p1, Point p2, int nbRem) {
+        this(p1, p2, nbRem, null);
+    }
+    
     public Arc(Point p1, Point p2, Vehicule v) {
         this(p1, p2, (v instanceof Camion ? 0 : 1), v);
 

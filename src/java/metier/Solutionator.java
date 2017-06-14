@@ -95,12 +95,20 @@ public class Solutionator {
        
         System.out.println(solutionStr);
         
-        File f = new File(file);
+        File f = new File(file + "_triviale");
         f.delete();
         
         FileWriter fileWriter = new FileWriter(file,true);
         fileWriter.write(solutionStr);
         fileWriter.close(); 
+        
+        f = new File(file + "_opti");
+        f.delete();
+        
+        fileWriter = new FileWriter(file,true);
+        fileWriter.write(solutionStr);
+        fileWriter.close(); 
+        
     }   
     
     public static void main(String[] args) throws IOException {
