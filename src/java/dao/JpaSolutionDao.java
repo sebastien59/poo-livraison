@@ -6,6 +6,7 @@
 package dao;
 
 import java.util.Collection;
+import javax.persistence.Query;
 import models.Solution;
 
 /**
@@ -27,14 +28,18 @@ public class JpaSolutionDao extends JpaDao<Solution> implements SolutionDao {
 
     @Override
     public Solution find(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query q = em.createNamedQuery("Solution.findByIdsolution");
+        q.setParameter("idSolution", id);
+        q.setMaxResults(1);
+        return (Solution) q.getSingleResult();
     }
 
     @Override
     public Collection<Solution> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query q = em.createNamedQuery("Solution.findAll");
+        return q.getResultList();
     }
-
+    
     @Override
     public boolean deleteAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

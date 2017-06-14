@@ -33,7 +33,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Solution.findAll", query = "SELECT s FROM Solution s"),
-    @NamedQuery(name = "Solution.findByIdsolution", query = "SELECT s FROM Solution s WHERE s.idSolution = :idSolution")})
+    @NamedQuery(name = "Solution.findByIdsolution", query = "SELECT s FROM Solution s WHERE s.idSolution = :idSolution"),
+    @NamedQuery(name = "Solution.findAllTournees", query = "SELECT s FROM Solution s WHERE s.idSolution = :idSolution")}
+)
+    
+
 public class Solution implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -121,7 +125,7 @@ public class Solution implements Serializable {
             // Utilisation des valeurs maximal comme variable tampon pour le dernier point de la tournée (Dépot)
             Depot D = (Depot) arcs.get(0).getP1();
             for(Arc a : arcs){
-//                str += "R"+(t.getIdTournee()+1)+";"; // On indique le nom de la tournée
+                str += "R"+(t.getIdTournee()+1)+";"; // On indique le nom de la tournée
                 str += (arcs.indexOf(a)+1)+";"; // On indique la position de la localisation dans tournée
                 str += a.getP1().getNom()+";";
                 str += a.getP1().getType()+";";
@@ -148,7 +152,7 @@ public class Solution implements Serializable {
             }
             
             // On créé la ligne de la dernière localisation de la tournée
-     //       str += "R"+(t.getIdTournee()+1)+";";
+              str += "R"+(t.getIdTournee()+1)+";";
             str += (arcs.size()+1)+";";
             str += D.getNom()+";";
             str += D.getType()+";";

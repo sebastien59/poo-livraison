@@ -5,6 +5,12 @@
  */
 package Controller;
 
+import dao.DaoFactory;
+import dao.DaoFactoryJpa;
+import dao.JpaSolutionDao;
+import dao.PersistenceType;
+import static dao.PersistenceType.JPA;
+import dao.SolutionDao;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import metier.Solutionator;
+import metierDao.Solutionator;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -50,6 +56,7 @@ public class UploadFile extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String root = getServletContext().getRealPath("/");  
+        PersistenceType type = JPA;
         try {
             boolean isMultipart = ServletFileUpload.isMultipartContent(request);
             response.setContentType("text/html;charset=UTF-8");
@@ -108,8 +115,15 @@ public class UploadFile extends HttpServlet{
                             out.println("<br><br><h1>"+abc+"</h1><br><br>");  
                         } 
                     }
-
-                    //Solutionator.CreerSortie(root + "Donnees/Solution.csv");
+                    
+                    Solutionator.base_path= root + "uploads/";
+                    Solutionator.CreerSortie(root + "Donnees/Solution.csv");
+                    SolutionDao SolutionManager = DaoFactory.getDaoFactory(type).getSolutionDao();
+                    
+                   // JpaTourneeDao jtd = );
+                    System.out.println(SolutionManager.findAll());
+                   
+                    request.setAttribute("sol", SolutionManager.findAll());
                     response.sendRedirect("vue/Solution.jsp");
                 }catch (FileUploadException e){  
                     out.println(e); 

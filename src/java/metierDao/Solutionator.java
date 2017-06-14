@@ -46,13 +46,13 @@ public class Solutionator {
     private SolutionDao SolutionManager;
     
     private PersistenceType type = JPA;
-        
+    
+    public static String base_path;
     public Solutionator() {
-        String size = "small";
-        DistanceTimesP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
-        FleetP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Fleet.csv");
-        LocationsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Locations.csv");
-        SwapActionsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/SwapActions.csv");
+        DistanceTimesP = new Parser(base_path+"DistanceTimesData.csv");
+        FleetP = new Parser(base_path+"Fleet.csv");
+        LocationsP = new Parser(base_path+"Locations.csv");
+        SwapActionsP = new Parser(base_path+"SwapActions.csv");
         S= new Solution();
         
         DepotManager = DaoFactory.getDaoFactory(type).getDepotDao();
@@ -125,10 +125,13 @@ public class Solutionator {
     }
     
     public static void CreerSortie(String file) throws IOException{
+        String size = "small";
+        
         Solutionator S = new Solutionator();
+        
         String solutionStr = S.triviale();
        
-        System.out.println(solutionStr);
+        //System.out.println(solutionStr);
         
         File f = new File(file);
         f.delete();
