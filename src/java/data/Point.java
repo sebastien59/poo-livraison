@@ -18,13 +18,16 @@ import java.util.function.Predicate;
  */
 public abstract class Point extends Point2D.Double{
     
+    private static int row = 1;
     private int id;
     private String nom;
     private String type;
     
 
     public Point(int id, String nom, double x, double y) {
-        this.id = id;
+        //this.id = id;
+        this.id = row;
+        row++;
         this.nom = nom;
         this.x = x;
         this.y = y;
@@ -81,16 +84,21 @@ public abstract class Point extends Point2D.Double{
     
     public Point getClosest(Collection<Point> points) {
         //double dist = java.lang.Double.MAX_VALUE;
-        double dist = 0;
+        double dist = 999999999;
         double tmpD = 0;
         Point tmpPt;
         Point closest = null;
-        for (int i=0; i < points.size()-1; i++) {
+        //System.out.println("Searching among : ");
+        //System.out.println(points.toString());
+        for (int i=0; i < points.size(); i++) {
+            //System.out.println("Comparing " + dist);
             if (dist > (tmpD = this.distance(tmpPt = (Point) points.toArray()[i]))) {
                 dist = tmpD;
                 closest = tmpPt;
             }
         }
+        //System.out.println("Return");
+        //System.out.println("Using : " + closest.toString());
         return closest;
     }
 
@@ -104,7 +112,8 @@ public abstract class Point extends Point2D.Double{
         
         switch(c){
             case "class data.Client" :
-                if (((Client) this).isDeliverableByTrain() && ((Client) this).getQuantiteCommandee() >= Constante.SEMI_TRAILER_CAPACITY) {
+                //System.out.println((((Client)this).isDeliverableByTrain() ? "TRAIN" : "CAMION") + ((Client)this).getQuantiteCommandee());
+                if (((Client) this).isDeliverableByTrain() && ((Client) this).getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY) {
                     return "T";
                 } else if (((Client) this).isDeliverableByTrain()) {
                     return "Tc";
@@ -113,7 +122,7 @@ public abstract class Point extends Point2D.Double{
                 }
             case "class data.Depot" :
                 return "D";
-            case "class data.Location" :
+            case "class data.Swaplocation" :
                 return "SL";
             default:
                 return "";    
@@ -123,16 +132,16 @@ public abstract class Point extends Point2D.Double{
 
    public String getType(){
         String c = this.getClass().toString();
-        
+        //System.out.println(c);
         switch(c){
             case "class data.Client" :
                    return "CUSTOMER";
             case "class data.Depot" :
                    return "DEPOT";
-            case "class data.Location" :
+            case "class data.Swaplocation" :
                    return "LOCATION";
             default:
-                return "";    
+                return "";
         }
     }    
 }

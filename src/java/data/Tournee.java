@@ -40,6 +40,19 @@ public class Tournee {
         this(idTournee, null, 0, 0, 0);
     }
     
+    public Tournee(Tournee T) {
+        idTournee = T.idTournee;
+        arcs = T.arcs;
+        coutTotal = T.coutTotal;
+        tempsTotal = T.tempsTotal;
+        quantiteTotal = T.quantiteTotal;
+        type = T.type;
+        max_semi_tr_at = T.max_semi_tr_at;
+        max_swap_body_tr = T.max_swap_body_tr;
+        max_swap_body_sm = T.max_swap_body_sm;
+        modeSL = T.modeSL;
+    }
+    
     public Tournee() {
         this(Tournee.lastID++);
     }
@@ -85,7 +98,10 @@ public class Tournee {
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
         this.tempsTotal+= a.getTps();
-        this.quantiteTotal+=a.getQuantite();
+        this.quantiteTotal+= a.getQuantite();
+        if (a.getP2() instanceof Client) {
+            ((Client)a.getP2()).setQuantiteCommandee(this.quantiteTotal);
+        }
     }
 
     public int getMax_semi_tr_at() {
@@ -175,6 +191,7 @@ public class Tournee {
     public boolean removeArc(Arc a) {
         this.arcs.remove(a);
         this.coutTotal -= a.getCost();
+        this.tempsTotal -= a.getTps();
         return true;
     }
     
@@ -185,24 +202,26 @@ public class Tournee {
                 if (a.getP2() instanceof Swaplocation) {
                     this.removeArc(a);
                     this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
-                    this.addArc(a);
+                    this.addArc(new Arc(p, a.getP2(), (rem == 1 ? new Train() : new Camion())));
                 }
             }
         } else {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Depot) {
+                    //System.out.println("//////////////////////////////");
+                    //System.out.println(a.getCost());
+                    //System.out.println(a.getTps());
                     this.removeArc(a);
-                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee() ));
-                    this.addArc(a);
+                    //System.out.println(this.getCoutTotal());
+                    this.addArc(new Arc(a.getP1(), p, rem, (rem == 1 ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee() ));
+                    //System.out.println(this.getCoutTotal());
+                    this.addArc(new Arc(p, a.getP2(), (rem == 1 ? new Train() : new Camion())));
+                    //System.out.println(this.getCoutTotal());
                     return true;
                 }
             }
         }
         return false;
-    }
-
-    public void changeVehicule(Train train) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public boolean changeVehicule(Vehicule v) {
@@ -212,8 +231,8 @@ public class Tournee {
         return true;
     }
 
-    public int getQuantiteCommandee() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public float getQuantiteCommandee() {
+        return this.quantiteTotal;
     }
 
     public void addSL() {

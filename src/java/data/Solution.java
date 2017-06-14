@@ -20,6 +20,7 @@ public class Solution {
     private Collection<Tournee> tournees;
     private static int lastId;
     private double coutTotal;
+    private boolean hasChanged = false;
 
     public Solution(int idSolution, Collection<Tournee> tournees) {
         this.idSolution = idSolution;
@@ -51,6 +52,7 @@ public class Solution {
     }
     
     public void addTournee(Tournee t) {
+        this.hasChanged = true;
         if (this.tournees == null) {
             this.tournees = new ArrayList<Tournee>();
         }
@@ -59,6 +61,7 @@ public class Solution {
     }
     
     public void removeTournee(Tournee t) {
+        this.hasChanged = true;
         this.tournees.remove(t);
         this.coutTotal-= t.getCoutTotal();
     }
@@ -213,4 +216,30 @@ public class Solution {
         return str;
     }
     */
+
+    public void prettyPrint() {
+        double qtitSoFar = 0;
+        System.out.println("---SOLUTION---");
+        for (Tournee T : this.tournees) {
+            System.out.println("\tTournée " + T.getIdTournee());
+            System.out.println("\tCosts " + T.getCoutTotal() + " // Lasts " + T.getTempsTotal() + " // Requires " + T.getQuantiteCommandee());
+            System.out.println("");
+            for (Arc a : T.getArcs()) {
+                System.out.println("\t\t" + (a.getVehicule() instanceof Camion ? "C : " : "T : ") +"DEPART -- " + a.getP1().getNom() + "\tARRIVEE -- " + a.getP2().getNom());
+                System.out.println("\t\t\tCosts " + a.getCost() + " // Lasts " + a.getTps() + " // Requires " + a.getQuantite());
+                qtitSoFar+= a.getQuantite();
+                System.out.println("\t\t\tQuantity required so far " + qtitSoFar);
+            }
+            qtitSoFar = 0;
+            System.out.println("");
+        }
+    }
+    
+    public boolean hasChanged() {
+        return this.hasChanged;
+    }
+    
+    public void restart() {
+        this.hasChanged = false;
+    }
 }

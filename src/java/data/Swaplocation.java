@@ -22,6 +22,7 @@ public class Swaplocation extends Point{
 
     public Swaplocation(int idSwapLocation, Collection<Swapbody> swapbodys, float tempsAction, int id, String nom, float x, float y) {
         super(id, nom, x, y);
+        this.name = nom;
         this.idSwapLocation = idSwapLocation;
         this.swapbodys = swapbodys;
         this.tempsAction = tempsAction;
@@ -86,7 +87,8 @@ public class Swaplocation extends Point{
     
     @Override
     public String toString() {
-        return "Swaplocation{" + "idSwapLocation=" + idSwapLocation + ", name=" + name + ", swapbodys=" + swapbodys + ", tempsAction=" + tempsAction + '}';
+        return this.name + "\n";
+        //return "Swaplocation{" + "idSwapLocation=" + idSwapLocation + ", name=" + name + ", swapbodys=" + swapbodys + ", tempsAction=" + tempsAction + '}';
     }
 
     

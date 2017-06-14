@@ -9,6 +9,7 @@ import data.Client;
 import data.Constante;
 import data.Depot;
 import data.Matrice;
+import data.Swaplocation;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,11 +26,13 @@ import java.util.List;
  * @author sebastien
  */
 public class Parser {
+    private int row = 1;
     private String file;
     private int lineStart;
     private int nbLine;
     private int nbColumn;
     private Depot depot;
+    private List<Swaplocation> swapLoca;
     private List<Client> clients;
     
     public Parser(String file) {
@@ -38,6 +41,7 @@ public class Parser {
         this.nbColumn=0;
         this.lineStart=0;
         this.clients = new ArrayList<Client>();
+        this.swapLoca = new ArrayList<>();
     }
     
     public Boolean read() throws FileNotFoundException, IOException{
@@ -133,13 +137,20 @@ public class Parser {
         this.nbColumn = values.length;
         
         if(values[0].equals("DEPOT")){
-            int id = Integer.parseInt(values[1].replace("D",""));
-            depot = new Depot(values[1], values[3], id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
+            //int id = Integer.parseInt(values[1].replace("D",""));
+            depot = new Depot(values[1], values[3], this.row, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]));
+            row++;
         }
         else if(values[0].equals("CUSTOMER")){
             int id = Integer.parseInt(values[1].replace("C",""));
-            
-            clients.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), id, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), !values[7].equals("0")));
+            //System.out.println("Client " + values[1] + " is " + (Integer.parseInt(values[7]) == 0 ? "not " : "") + "deliverable by train.");
+            clients.add(new Client(id, values[1], Double.parseDouble(values[8]), Double.parseDouble(values[6]), row, values[1], Double.parseDouble(values[4]), Double.parseDouble(values[5]), Integer.parseInt(values[7]) != 0));
+            row++;
+        } else if(values[0].equals("SWAP_LOCATION")) {
+            //int id = Integer.parseInt(values[1].replace("S", ""));
+            //public Swaplocation(int idSwapLocation, Collection<Swapbody> swapbodys, float tempsAction, int id, String nom, float x, float y) {
+            swapLoca.add(new Swaplocation(row, null, 0, 0, values[1], 0, 0));
+            row++;
         }
         
     }
@@ -203,6 +214,10 @@ public class Parser {
 
     public List<Client> getClients() {
         return clients;
+    }
+    
+    public List<Swaplocation> getSwapLoca() {
+        return swapLoca;
     }
     
     public static void main(String[] args) throws IOException {
