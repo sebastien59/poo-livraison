@@ -86,6 +86,7 @@ public class Solutionator {
             
             T.addArc(a1);
             T.addArc(a2);
+            if (type.equals("C")) T.setTruck();
             S.addTournee(T);
         }
 
@@ -106,12 +107,12 @@ public class Solutionator {
        
         System.out.println(solutionStr);
         
-        File f = new File(file + "_triviale");
+        /*File f = new File(file + "_triviale");
         f.delete();
         
         FileWriter fileWriter = new FileWriter(file,true);
         fileWriter.write(solutionStr);
-        fileWriter.close(); 
+        fileWriter.close(); */
         
         list.addAll(S.LocationsP.getClients());
         list.addAll(S.LocationsP.getSwapLoca());
@@ -121,12 +122,13 @@ public class Solutionator {
         
         op.OptimiserAll(S.LocationsP.getDepot());
         op.getSol().prettyPrint();
+        S.S = op.getSol();
         
-        f = new File(file + "_opti");
+        File f = new File(file);
         f.delete();
         
-        fileWriter = new FileWriter(file,true);
-        fileWriter.write(solutionStr);
+        FileWriter fileWriter = new FileWriter(file,true);
+        fileWriter.write(S.S.toString());
         fileWriter.close(); 
         System.out.printf("Ancien Coût : %.0f\n", S.cout);
         System.out.printf("Nouveau Coût : %.0f\n", S.S.getCoutTotal());

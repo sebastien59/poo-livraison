@@ -62,6 +62,10 @@ public class Client extends Point {
     public double getQuantiteCommandee() {
         return quantiteCommandee;
     }
+    
+    public double getQuantitInit() {
+        return this.qtitInit;
+    }
 
     public void setQuantiteCommandee(float quantiteCommandee) {
         this.quantiteCommandee = quantiteCommandee;

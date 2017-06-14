@@ -98,10 +98,13 @@ public class Solution {
     
     @Override
     public String toString() {
+        double qtit = 0;
+        double used = 0;
         //Header du tableau
         String str = "TOUR_ID;TOUR_POSITION;LOCATION_ID;LOCATION_TYPE;SEMI_TRAILER_ATTACHED;SWAP_BODY_TRUCK;SWAP_BODY_SEMI_TRAILER;SWAP_ACTION;SWAP_BODY_1_QUANTITY;SWAP_BODY_2_QUANTITY\n";
         
         for(Tournee t : tournees){
+            qtit = 0;
             ArrayList<Arc> arcs = (ArrayList)t.getArcs();
             
             // Utilisation des valeurs maximal comme variable tampon pour le dernier point de la tournée (Dépot)
@@ -123,12 +126,32 @@ public class Solution {
                 
                 str += "NONE;"; // SWAP ACTION 
                 if(a.getP1() instanceof Client){ // On divise la commande en 2 quantités si besoin
-                    if(((Client)a.getP1()).getQuantiteCommandee()>Constante.SWAP_BODY_CAPACITY )
-                        str +=Constante.SWAP_BODY_CAPACITY+";"+(((Client)a.getP1()).getQuantiteCommandee()-Constante.SWAP_BODY_CAPACITY );
-                    else
-                        str +=((Client)a.getP1()).getQuantiteCommandee()+";0";
-                }else
+                    //qtit = ((Client)a.getP1()).getQuantiteCommandee();
+                    if (((Client)a.getP1()).getQuantitInit() + qtit > (Constante.SWAP_BODY_CAPACITY)) {
+                        str+= (Constante.SWAP_BODY_CAPACITY - qtit >= 0 ? Constante.SWAP_BODY_CAPACITY - qtit : 0)+ ";";
+                        str+=((Client)a.getP1()).getQuantitInit() - (Constante.SWAP_BODY_CAPACITY - qtit >= 0 ? Constante.SWAP_BODY_CAPACITY - qtit : 0);
+                    } else {
+                        str+= ((Client)a.getP1()).getQuantitInit() + ";";
+                        str+= "0";
+                    }
+                    qtit += ((Client)a.getP1()).getQuantitInit();
+                    /*if(qtit>Constante.SWAP_BODY_CAPACITY) {
+                        //qtit-= ((Client)a.getP1()).getQuantitInit();
+                        if (((Client)a.getP1()).getQuantitInit() >= (qtit - Constante.SWAP_BODY_CAPACITY)) {
+                            str+=((Client)a.getP1()).getQuantitInit()-(qtit - Constante.SWAP_BODY_CAPACITY)+";";
+                            str+= (qtit - Constante.SWAP_BODY_CAPACITY);
+                            qtit-= ((Client)a.getP1()).getQuantitInit();
+                        } else {
+                            str+= "0;" + ((Client)a.getP1()).getQuantitInit();
+                            qtit-= ((Client)a.getP1()).getQuantitInit();
+                        }
+                    } else {
+                        str += ((Client)a.getP1()).getQuantitInit() + ";0";
+                        qtit-= ((Client)a.getP1()).getQuantitInit();
+                    }*/
+                } else {
                     str += "0;0";
+                }
                 
                 str += "\n";
             }
@@ -223,12 +246,13 @@ public class Solution {
         for (Tournee T : this.tournees) {
             System.out.println("\tTournée " + T.getIdTournee());
             System.out.println("\tCosts " + T.getCoutTotal() + " // Lasts " + T.getTempsTotal() + " // Requires " + T.getQuantiteCommandee());
+            System.out.println("\tTournée réalisée par un " + (T.isTrain() ? "train" : "") + (T.isTruck() ? "camion" : ""));
             System.out.println("");
             for (Arc a : T.getArcs()) {
-                System.out.println("\t\t" + (a.getVehicule() instanceof Camion ? "C : " : "T : ") +"DEPART -- " + a.getP1().getNom() + "\tARRIVEE -- " + a.getP2().getNom());
-                System.out.println("\t\t\tCosts " + a.getCost() + " // Lasts " + a.getTps() + " // Requires " + a.getQuantite());
+                System.out.println("\t\t" + a.getP1().getTypeP() + "->" + a.getP2().getTypeP() + "\t" + (a.getVehicule() instanceof Camion ? "C : " : "T : ") +"DEPART -- " + a.getP1().getNom() + "(" + a.getP1().getTypeP() + ")" + "\tARRIVEE -- " + a.getP2().getNom() + "(" + a.getP2().getTypeP() + ")");
+                System.out.println("\t\t\t\tCosts " + a.getCost() + " // Lasts " + a.getTps() + " // Requires " + a.getQuantite());
                 qtitSoFar+= a.getQuantite();
-                System.out.println("\t\t\tQuantity required so far " + qtitSoFar);
+                System.out.println("\t\t\t\tQuantity filled so far " + qtitSoFar);
             }
             qtitSoFar = 0;
             System.out.println("");

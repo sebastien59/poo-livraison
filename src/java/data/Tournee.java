@@ -27,6 +27,8 @@ public class Tournee {
     private int max_swap_body_tr = 0;
     private int max_swap_body_sm = 0;
     private boolean modeSL = false;
+    private boolean isTruck = false;
+    private boolean isTrain = false;
     
     public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal, float quantiteTotal) {
         this.idTournee = idTournee;
@@ -201,7 +203,7 @@ public class Tournee {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Swaplocation) {
                     this.removeArc(a);
-                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
+                    this.addArc(new Arc(a.getP1(), p, rem, (rem == 1 ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee()));
                     this.addArc(new Arc(p, a.getP2(), (rem == 1 ? new Train() : new Camion())));
                 }
             }
@@ -213,9 +215,10 @@ public class Tournee {
                     //System.out.println(a.getTps());
                     this.removeArc(a);
                     //System.out.println(this.getCoutTotal());
-                    this.addArc(new Arc(a.getP1(), p, rem, (rem == 1 ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee() ));
+                    //this.addArc(new Arc(a.getP1(), p, rem, (rem == 1 ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee() ));
+                    this.addArc(new Arc(a.getP1(), p, rem, (this.isTrain ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee() ));
                     //System.out.println(this.getCoutTotal());
-                    this.addArc(new Arc(p, a.getP2(), (rem == 1 ? new Train() : new Camion())));
+                    this.addArc(new Arc(p, a.getP2(), (this.isTrain ? new Train() : new Camion())));
                     //System.out.println(this.getCoutTotal());
                     return true;
                 }
@@ -255,5 +258,23 @@ public class Tournee {
             //this.addPoint(P1, 1);
             this.modeSL = true;
         }
+    }
+    
+    public void setTruck() {
+        this.changeVehicule(new Camion());
+        this.isTruck = true;
+    }
+    
+    public boolean isTruck() {
+        return this.isTruck;
+    }
+    
+    public void setTrain() {
+        this.changeVehicule(new Train());
+        this.isTrain = true;
+    }
+    
+    public boolean isTrain() {
+        return this.isTrain;
     }
 }
