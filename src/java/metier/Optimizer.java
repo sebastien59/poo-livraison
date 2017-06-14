@@ -16,6 +16,11 @@ public final class Optimizer {
     private static Solution sol;
     private static Collection<Point> listeNonTraites;
     
+    
+    public void initList(Collection<Point> l) {
+        Optimizer.listeNonTraites = l;
+    }
+    
     private static Solution getOptimizedSolution(double delta, Collection<Point> points, Point depot) {
         double profit = 0;
         Arc retour;
@@ -292,23 +297,26 @@ public final class Optimizer {
                 TtmtCamion(P2);
             }
         }else if(P2.getTypeP() == "SL"){
-            TtmtSwapLocation(P2);
+            TtmtSwapLocation(P2, P1);
         }
     }
     
-    private void TtmtSwapLocation(Point P1){
+    private void TtmtSwapLocation(Point ante, Point P1){
         
-          
+        
         //ajouter SL à la tournee
         //changer le type de vehicule sur les arcs
         //relancer un optimiser(P1);
+        Tournee T = ((Client) ante).getTournee();
         
         Point P2 = plusProcheVoisin(P1);  
-        if(P2.getTypeP() == "Tc"){
-            TtmtCamion(P2);
-        }else if(P2.getTypeP() == "C" ){
-            TtmtCamion(P2);
+        if (P2 instanceof Depot) {
+            return;
         }
+        
+        T.addSL(P1, P2);
+        TtmtCamion(P2);
+        T.addSL();
     }
     
 }
