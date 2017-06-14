@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import metierDao.Calculatron2000;
 
 /**
  *
@@ -41,7 +42,9 @@ public class Arc implements Serializable {
     @Column(name = "COST")
     private double cost;
     @Column(name = "REM")
-    private Integer rem;
+    private boolean rem;
+    @Column(name = "TPS")
+    private double tps;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,10 +52,10 @@ public class Arc implements Serializable {
     @NotNull
     @Column(name = "IDARC")
     private Integer idarc;
-    @JoinTable(name = "ARC_HAS_POINT", joinColumns = {
+    /*@JoinTable(name = "ARC_HAS_POINT", joinColumns = {
         @JoinColumn(name = "ARC_IDARC", referencedColumnName = "IDARC")}, inverseJoinColumns = {
         @JoinColumn(name = "POINT_IDPOINT", referencedColumnName = "IDPOINT")})
-    @ManyToMany
+    @ManyToMany*/
     private Collection<Point> pointCollection;
     @JoinColumn(name = "NTOURNEE", referencedColumnName = "IDTOURNEE")
     @ManyToOne(optional = false)
@@ -60,8 +63,23 @@ public class Arc implements Serializable {
     @JoinColumn(name = "NVEHICULE", referencedColumnName = "IDVEHICULE")
     @ManyToOne(optional = false)
     private Vehicule nvehicule;
+    
+    public Arc(){
+        
+    }
 
-    public Arc() {
+     public Arc(Point p1, Point p2, int nbRem, Vehicule vehicule) {
+        pointCollection = new ArrayList<Point>();
+        ((ArrayList<Point>) pointCollection).add(p1);
+        ((ArrayList<Point>) pointCollection).add(p2);
+        this.rem = (nbRem == 1);
+        this.cost = Calculatron2000.getCostMatrixValue(p1, p2, nbRem);
+        this.nvehicule=vehicule;
+    }
+    
+    public Arc(Point p1, Point p2, Vehicule v) {
+        this(p1, p2, (v instanceof Camion ? 0 : 1), v);
+        this.tps = Calculatron2000.getTpsMatrixValue(p1, p2);
     }
 
     public Arc(Integer idarc) {
@@ -85,11 +103,11 @@ public class Arc implements Serializable {
     }
     
     public Point getP2() {
-        return ((ArrayList<Point>) pointCollection).get(0);
+        return ((ArrayList<Point>) pointCollection).get(1);
     }
 
     public void setP2(Point p2) {
-        ((ArrayList<Point>) pointCollection).set(0, p2);
+        ((ArrayList<Point>) pointCollection).set(1, p2);
     }
     
     @XmlTransient
@@ -149,13 +167,25 @@ public class Arc implements Serializable {
     public void setCost(double cost) {
         this.cost = cost;
     }
+    
+    public void setTournee(Tournee t) {
+        this.ntournee = t;
+        if (this.getP1() instanceof Client) ((Client)this.getP1()).setTournee(t);
+        if (this.getP2() instanceof Client) ((Client)this.getP2()).setTournee(t);
+    }
 
-    public Integer getRem() {
+    public boolean isRem() {
         return rem;
     }
 
-    public void setRem(Integer rem) {
+    public void setRem(boolean rem) {
         this.rem = rem;
     }
+
+    public double getTps() {
+        return tps;
+    }
+    
+    
     
 }

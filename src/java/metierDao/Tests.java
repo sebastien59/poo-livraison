@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package metierDao;
+import dao.ClientDao;
+import dao.ConstanteDao;
 import dao.DaoFactory;
+import dao.DepotDao;
 import dao.PersistenceType;
 import static dao.PersistenceType.JPA;
 import dao.SolutionDao;
@@ -18,5 +21,8 @@ public class Tests {
         PersistenceType type = JPA;
         
         SolutionDao SolutionManager = DaoFactory.getDaoFactory(type).getSolutionDao();
+        DepotDao    DepotManager = DaoFactory.getDaoFactory(type).getDepotDao();
+        ClientDao    ClientManager = DaoFactory.getDaoFactory(type).getClientDao();
+        ConstanteDao ConstanteManager = DaoFactory.getDaoFactory(type).getConstanteDao();
     }
 }

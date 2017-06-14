@@ -5,17 +5,9 @@
  */
 package metierDao;
 
-import metier.*;
-import data.Arc;
-import data.Camion;
-import data.Client;
-import data.Depot;
+import metierDao.*;
 import data.Matrice;
-import data.Point;
-import data.Solution;
-import data.Tournee;
-import data.Train;
-import data.Vehicule;
+import models.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -37,10 +29,10 @@ public class Solutionator {
 
     public Solutionator() {
         String size = "small";
-        DistanceTimesP = new Parser("C:\\Users\\Youssra\\Desktop\\projet2017\\dima\\DistanceTimesData.csv");
-        FleetP = new Parser("C:\\Users\\Youssra\\Desktop\\projet2017\\"+size+"_normal/Fleet.csv");
-        LocationsP = new Parser("C:\\Users\\Youssra\\Desktop\\projet2017\\"+size+"_normal/Locations.csv");
-        SwapActionsP = new Parser("C:\\Users\\Youssra\\Desktop\\projet2017\\"+size+"_normal/SwapActions.csv");
+        DistanceTimesP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/dima/DistanceTimesData.csv");
+        FleetP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Fleet.csv");
+        LocationsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/Locations.csv");
+        SwapActionsP = new Parser("/Users/sebastien/Documents/IG2I/Cours/L4/POO/projet/projet2017/"+size+"_normal/SwapActions.csv");
         S= new Solution();
     }
     

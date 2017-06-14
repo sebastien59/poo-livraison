@@ -107,4 +107,8 @@ public final class Calculatron2000 {
         }
         return MC;
     }
+
+    public static double getCostMatrixValue(models.Point p1, models.Point p2, int nbRem) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
