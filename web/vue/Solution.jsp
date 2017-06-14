@@ -4,6 +4,24 @@
     Author     : vincent
 --%>
 
+<<<<<<< HEAD
+<jsp:include page="../header.jsp"/>
+<div id="map"></div>
+<script>
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+      });
+    }
+    
+    initMap();
+</script>
+
+
+<jsp:include page="../footer.jsp"/>
+=======
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -33,3 +51,4 @@
         
     
 </html>
+>>>>>>> 07e13f4e5a2c4591e52cd9b1c1f0ac340e963bca

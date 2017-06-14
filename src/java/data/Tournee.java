@@ -17,7 +17,6 @@ import java.util.Collection;
 public class Tournee {
     
     private int idTournee;
-    private Vehicule vehicule;
     private Collection<Arc> arcs;
     private double coutTotal;
     private float tempsTotal;
@@ -27,16 +26,15 @@ public class Tournee {
     private int max_swap_body_tr = 0;
     private int max_swap_body_sm = 0;
     
-    public Tournee(int idTournee, Vehicule vehicule, Collection<Arc> arcs, float coutTotal, float tempsTotal) {
+    public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal) {
         this.idTournee = idTournee;
-        this.vehicule = vehicule;
         this.arcs = arcs;
         this.coutTotal = coutTotal;
         this.tempsTotal = tempsTotal;
     }
     
     public Tournee(int idTournee) {
-        this(idTournee, null, null, 0, 0);
+        this(idTournee, null, 0, 0);
     }
     
     public Tournee() {
@@ -51,13 +49,6 @@ public class Tournee {
         this.idTournee = idTournee;
     }
     
-    public Vehicule getVehicule() {
-        return vehicule;
-    }
-
-    public void setVehicule(Vehicule vehicule) {
-        this.vehicule = vehicule;
-    }
 
     public Collection<Arc> getArcs() {
         return arcs;
@@ -162,7 +153,7 @@ public class Tournee {
 
     @Override
     public String toString() {
-        return "Tournee{" + "idTournee=" + idTournee + ", vehicule=" + vehicule + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
+        return "Tournee{" + "idTournee=" + idTournee + ", points=" + arcs + ", coutTotal=" + coutTotal + ", tempsTotal=" + tempsTotal + '}';
     }
 
     int getType() {
@@ -179,7 +170,7 @@ public class Tournee {
         for (Arc a : this.arcs) {
             if (a.getP2() instanceof Depot) {
                 this.removeArc(a);
-                this.addArc(new Arc(a.getP1(), p, rem));
+                this.addArc(new Arc(a.getP1(), p, rem, null));
                 return true;
             }
         }
