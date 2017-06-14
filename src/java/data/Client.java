@@ -15,6 +15,7 @@ public class Client extends Point {
     private int idClient;
     private String nomClient;
     private double tempsService;
+    private double qtitInit;
     private double quantiteCommandee;
     private boolean remorque;
     private Arc a;
@@ -26,6 +27,7 @@ public class Client extends Point {
         this.nomClient = nomClient;
         this.tempsService = tempsService;
         this.quantiteCommandee = quantiteCommandee;
+        this.qtitInit = quantiteCommandee;
         this.remorque = rem;
     }
     
@@ -60,6 +62,10 @@ public class Client extends Point {
     public double getQuantiteCommandee() {
         return quantiteCommandee;
     }
+    
+    public double getQuantitInit() {
+        return this.qtitInit;
+    }
 
     public void setQuantiteCommandee(float quantiteCommandee) {
         this.quantiteCommandee = quantiteCommandee;
@@ -78,7 +84,8 @@ public class Client extends Point {
     }
 
     public String toString() {
-        return "Client{" + "idClient=" + idClient + ", nomClient=" + nomClient + ", tempsService=" + tempsService + ", quantiteCommandee=" + quantiteCommandee + ", remorque=" + remorque + '}';
+        return this.nomClient + "\n";
+        //return "Client{" + "idClient=" + idClient + ", nomClient=" + nomClient + ", tempsService=" + tempsService + ", quantiteCommandee=" + quantiteCommandee + ", remorque=" + remorque + '}';
     }
 
     

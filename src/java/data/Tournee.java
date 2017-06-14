@@ -27,6 +27,8 @@ public class Tournee {
     private int max_swap_body_tr = 0;
     private int max_swap_body_sm = 0;
     private boolean modeSL = false;
+    private boolean isTruck = false;
+    private boolean isTrain = false;
     
     public Tournee(int idTournee,Collection<Arc> arcs, float coutTotal, float tempsTotal, float quantiteTotal) {
         this.idTournee = idTournee;
@@ -38,6 +40,19 @@ public class Tournee {
     
     public Tournee(int idTournee) {
         this(idTournee, null, 0, 0, 0);
+    }
+    
+    public Tournee(Tournee T) {
+        idTournee = T.idTournee;
+        arcs = T.arcs;
+        coutTotal = T.coutTotal;
+        tempsTotal = T.tempsTotal;
+        quantiteTotal = T.quantiteTotal;
+        type = T.type;
+        max_semi_tr_at = T.max_semi_tr_at;
+        max_swap_body_tr = T.max_swap_body_tr;
+        max_swap_body_sm = T.max_swap_body_sm;
+        modeSL = T.modeSL;
     }
     
     public Tournee() {
@@ -85,7 +100,10 @@ public class Tournee {
         this.arcs.add(a);
         this.coutTotal+= a.getCost();
         this.tempsTotal+= a.getTps();
-        this.quantiteTotal+=a.getQuantite();
+        this.quantiteTotal+= a.getQuantite();
+        if (a.getP2() instanceof Client) {
+            ((Client)a.getP2()).setQuantiteCommandee(this.quantiteTotal);
+        }
     }
 
     public int getMax_semi_tr_at() {
@@ -175,6 +193,7 @@ public class Tournee {
     public boolean removeArc(Arc a) {
         this.arcs.remove(a);
         this.coutTotal -= a.getCost();
+        this.tempsTotal -= a.getTps();
         return true;
     }
     
@@ -184,25 +203,28 @@ public class Tournee {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Swaplocation) {
                     this.removeArc(a);
-                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee()));
-                    this.addArc(a);
+                    this.addArc(new Arc(a.getP1(), p, rem, (rem == 1 ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee()));
+                    this.addArc(new Arc(p, a.getP2(), (rem == 1 ? new Train() : new Camion())));
                 }
             }
         } else {
             for (Arc a : this.arcs) {
                 if (a.getP2() instanceof Depot) {
+                    //System.out.println("//////////////////////////////");
+                    //System.out.println(a.getCost());
+                    //System.out.println(a.getTps());
                     this.removeArc(a);
-                    this.addArc(new Arc(a.getP1(), p, rem, null, ((Client) p).getQuantiteCommandee() ));
-                    this.addArc(a);
+                    //System.out.println(this.getCoutTotal());
+                    //this.addArc(new Arc(a.getP1(), p, rem, (rem == 1 ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee() ));
+                    this.addArc(new Arc(a.getP1(), p, rem, (this.isTrain ? new Train() : new Camion()), ((Client) p).getQuantiteCommandee() ));
+                    //System.out.println(this.getCoutTotal());
+                    this.addArc(new Arc(p, a.getP2(), (this.isTrain ? new Train() : new Camion())));
+                    //System.out.println(this.getCoutTotal());
                     return true;
                 }
             }
         }
         return false;
-    }
-
-    public void changeVehicule(Train train) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public boolean changeVehicule(Vehicule v) {
@@ -212,8 +234,8 @@ public class Tournee {
         return true;
     }
 
-    public int getQuantiteCommandee() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public float getQuantiteCommandee() {
+        return this.quantiteTotal;
     }
 
     public void addSL() {
@@ -236,5 +258,23 @@ public class Tournee {
             //this.addPoint(P1, 1);
             this.modeSL = true;
         }
+    }
+    
+    public void setTruck() {
+        this.changeVehicule(new Camion());
+        this.isTruck = true;
+    }
+    
+    public boolean isTruck() {
+        return this.isTruck;
+    }
+    
+    public void setTrain() {
+        this.changeVehicule(new Train());
+        this.isTrain = true;
+    }
+    
+    public boolean isTrain() {
+        return this.isTrain;
     }
 }

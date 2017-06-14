@@ -28,24 +28,25 @@ public class Arc {
         this.cost = Calculatron2000.getCostMatrixValue(p1, p2, nbRem);
         this.vehicule= vehicule;
         this.quantite = quantite;
+        this.tps = Calculatron2000.getTpsMatrixValue(p1, p2);
     }
     
     
     public Arc(Point p1, Point p2, Vehicule v) {
-        this(p1, p2, (v instanceof Camion ? 0 : 1), v, ((Client) p2).getQuantiteCommandee());
+        this(p1, p2, (v instanceof Camion ? 0 : 1), v, (p2 instanceof Client ? ((Client) p2).getQuantiteCommandee() : 0 ));
 
-        this.tps = Calculatron2000.getTpsMatrixValue(p1, p2);
+        //this.tps = Calculatron2000.getTpsMatrixValue(p1, p2);
 
     }
     
     public Arc(Point p1, Client p2) {
         this(p1, p2,(p2.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY ? 1 : 0),null, ((Client) p2).getQuantiteCommandee());
-        System.out.println("COND ::: "+p2.getNom()+"::::"+(p2.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
+        //System.out.println("COND ::: "+p2.getNom()+"::::"+(p2.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
         p2.setArc(this);
     }
     public Arc(Client p1, Point p2) {
         this(p1, p2, (p1.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY ? 1 : 0),null, ((Client) p2).getQuantiteCommandee());
-        System.out.println("COND ::: "+p1.getNom()+"::::"+(p1.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
+        //System.out.println("COND ::: "+p1.getNom()+"::::"+(p1.getQuantiteCommandee() >= Constante.SWAP_BODY_CAPACITY));
         p1.setArc(this);
     }
 

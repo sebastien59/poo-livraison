@@ -71,6 +71,7 @@ public class Matrice {
     }
     
     public double getCell(int x, int y) {
+        //System.out.println("Looking for " + x + ", " + y);
         return content[x-1][y-1];
     }
 
