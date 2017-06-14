@@ -44,7 +44,7 @@ public class Solutionator {
         SwapActionsP.read();
         
         M = DistanceTimesP.makeMatrice();
-        Depot D = LocationsP.getDepot();
+        models.Depot D = LocationsP.getDepot();
         clients = LocationsP.getClients();
         
         Calculatron2000.calculateCostMatrix(M);

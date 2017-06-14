@@ -16,6 +16,11 @@ public final class Optimizer {
     private static Solution sol;
     private static Collection<Point> listeNonTraites;
     
+    
+    public void initList(Collection<Point> l) {
+        Optimizer.listeNonTraites = l;
+    }
+    
     private static Solution getOptimizedSolution(double delta, Collection<Point> points, Point depot) {
         double profit = 0;
         Arc retour;
@@ -135,7 +140,7 @@ public final class Optimizer {
 
         if (criteria.contains("H")) {
             prediTemp = (Point p) -> {
-                return (new Arc(origin, p, 0).getTps() <= t);
+                return (new Arc(origin, p, 0, null, ((Client) origin).getQuantiteCommandee()).getTps() <= t);
             };
             if (predi == null) {
                 predi = prediTemp;
@@ -219,38 +224,99 @@ public final class Optimizer {
     public void TtmtCamion(Point P1){
         
         Point P2 = plusProcheVoisin(P1);
-        
-        Tournee TourneeP1 = ((Client)P1).getTournee();
-        Tournee TourneeP2 = ((Client)P2).getTournee();
-        Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
-        
-        TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
-              
-        if(TourneeTotale.getCoutTotal() <= TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
-                       
-            sol.removeTournee(TourneeP2); 
-            ((Client) P1).setTournee(TourneeTotale);
-        }   
+        if(P2 instanceof Depot){
+            listeNonTraites.remove(P1);
+            return;
+        } 
+        if(P2.getTypeP()!="SL"){
+            Tournee TourneeP1 = ((Client)P1).getTournee();
+            Tournee TourneeP2 = ((Client)P2).getTournee();
+            Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
+
+            TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
+
+            if(TourneeTotale.getCoutTotal() < TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
+
+                sol.removeTournee(TourneeP2); 
+                ((Client) P1).setTournee(TourneeTotale);
+            }    
+        }else{
+            Optimiser(P2);
+            
+        }
     }
 
     private void TtmtTrain(Point P1) {
+           
         Point P2 = plusProcheVoisin(P1);
-        
-        Tournee TourneeP1 = ((Client)P1).getTournee();
-        Tournee TourneeP2 = ((Client)P2).getTournee();
-        Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
-        
-        TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
-              
-        if(TourneeTotale.getCoutTotal() <= TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
-                       
-            sol.removeTournee(TourneeP2); 
-            ((Client) P1).setTournee(TourneeTotale);
-        }   
-    }
+        if(P2 instanceof Depot){
+            listeNonTraites.remove(P1);
+            return;
+        } 
+        if(P2.getTypeP()=="T" ){
+            Tournee TourneeP1 = ((Client)P1).getTournee();
+            Tournee TourneeP2 = ((Client)P2).getTournee();
+            Tournee TourneeTotale = ((Client)P1).getTournee(); // Simulation de la tournée P1 
 
+            TourneeTotale.addPoint(P2 , 0); // on ajoute le point le plus proche  à la tournée de P1!
+
+            if(TourneeTotale.getCoutTotal() < TourneeP1.getCoutTotal() + TourneeP2.getCoutTotal()){
+
+                sol.removeTournee(TourneeP2); 
+                ((Client) P1).setTournee(TourneeTotale);
+            }   
+        }else if(P2.getTypeP()=="SL"){
+            //ajouter SL à la tournee
+            //changer le type de tournee
+            //relancer un optimiser(P2);
+            //Optimiser(P1);
+        }
+       
+    }
+    
     private void TtmtTrainCamion(Point P1) {
         
+        Point P2 = plusProcheVoisin(P1);
+        if(P2 instanceof Depot){
+            listeNonTraites.remove(P1);
+            return;
+        } 
+        
+        
+        if(P2.getTypeP() == "C" ){
+            TtmtCamion(P2);
+        }else if(P2.getTypeP() == "T" ){
+            TtmtTrain(P2);
+        }else if(P2.getTypeP() == "Tc" ){
+            
+            Tournee TourneeTotale = ((Client)P1).getTournee();
+            TourneeTotale.addPoint(P2, 0);
+            if(TourneeTotale.getQuantiteTotal() > Constante.SEMI_TRAILER_CAPACITY) { //on change de type de véhicule
+                TourneeTotale.changeVehicule(new Train());
+            }else{
+                TtmtCamion(P2);
+            }
+        }else if(P2.getTypeP() == "SL"){
+            TtmtSwapLocation(P2, P1);
+        }
+    }
+    
+    private void TtmtSwapLocation(Point ante, Point P1){
+        
+        
+        //ajouter SL à la tournee
+        //changer le type de vehicule sur les arcs
+        //relancer un optimiser(P1);
+        Tournee T = ((Client) ante).getTournee();
+        
+        Point P2 = plusProcheVoisin(P1);  
+        if (P2 instanceof Depot) {
+            return;
+        }
+        
+        T.addSL(P1, P2);
+        TtmtCamion(P2);
+        T.addSL();
     }
     
 }
